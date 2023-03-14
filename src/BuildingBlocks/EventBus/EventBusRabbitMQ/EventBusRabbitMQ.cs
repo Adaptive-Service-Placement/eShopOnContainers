@@ -1,9 +1,13 @@
 ﻿namespace Microsoft.eShopOnContainers.BuildingBlocks.EventBusRabbitMQ;
+using System.Net;
 
 public class EventBusRabbitMQ : IEventBus, IDisposable
 {
     const string BROKER_NAME = "eshop_event_bus";
     const string AUTOFAC_SCOPE_NAME = "eshop_event_bus";
+
+    const string EXTERNAL_BROKER_NAME = "bachelor_exchange";
+    const string EXTERNAL_ROUTING_KEY = "monitoring_routingKey";
 
     private readonly IRabbitMQPersistentConnection _persistentConnection;
     private readonly ILogger<EventBusRabbitMQ> _logger;
@@ -74,6 +78,35 @@ public class EventBusRabbitMQ : IEventBus, IDisposable
             WriteIndented = true
         });
 
+        var ip = "";
+        IPAddress[] localIPs = Dns.GetHostAddresses(Dns.GetHostName());
+        foreach (IPAddress addr in localIPs)
+        {
+            if (addr.AddressFamily == AddressFamily.InterNetwork)
+            {
+                ip = addr.ToString();
+            }
+        }
+
+        var exchange = BROKER_NAME;
+        var routingKey = eventName;
+        var messageSize = body.Length;
+
+        var messagingInformation = new MessagingInformation();
+        messagingInformation.serviceIp = ip;
+        messagingInformation.exchange = exchange;
+        messagingInformation.routingKey = routingKey;
+        messagingInformation.messageSize = messageSize;
+
+        _logger.LogTrace("IP: {IpAddress}, Exchange: {Exchange}, Routing key: {RoutingKey}, Size of Message in Bytes: {MessageSize}", messagingInformation.serviceIp, messagingInformation.exchange, messagingInformation.routingKey, messagingInformation.messageSize);
+
+        var body2 = JsonSerializer.SerializeToUtf8Bytes(messagingInformation, messagingInformation.GetType(), new JsonSerializerOptions
+        {
+            WriteIndented = true
+        });
+
+        _logger.LogTrace("This message is being sent to the Monitoring Service: {message}, This is the configured Type: {type}",  body2, messagingInformation.GetType());
+
         policy.Execute(() =>
         {
             var properties = channel.CreateBasicProperties();
@@ -87,6 +120,16 @@ public class EventBusRabbitMQ : IEventBus, IDisposable
                 mandatory: true,
                 basicProperties: properties,
                 body: body);
+
+            _logger.LogTrace("Forwarding Messaging Information to the Monitoring Service.");
+
+            // TODO: Send messagingInformation to Monitoring Service
+            channel.BasicPublish(
+                exchange: EXTERNAL_BROKER_NAME,
+                routingKey: EXTERNAL_ROUTING_KEY,
+                mandatory: true,
+                basicProperties: properties,
+                body:body2);
         });
     }
 
