@@ -184,7 +184,7 @@ services:
       - /var/lib/mysql:/var/lib/mysql
 
   monitoring-service:
-    image: monitoring-service
+    image: adaptiveserviceplacement/monitoring-service:latest
     ports:
       - "8080:8080"
     environment:
@@ -197,7 +197,7 @@ services:
       - mysql
 
   mapping-service:
-    image: mapping-service
+    image: adaptiveserviceplacement/mapping-service:latest
     ports:
       - "8082:8082"
     environment:
