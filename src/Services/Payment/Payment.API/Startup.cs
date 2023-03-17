@@ -139,7 +139,7 @@ public class Startup
         services.AddTransient<OrderStatusChangedToStockConfirmedIntegrationEventHandler>();
         services.AddSingleton<IEventBusSubscriptionsManager, InMemoryEventBusSubscriptionsManager>();
     }
-
+    // !! MODIFY HERE TO IMPLEMENT COMMUNICATION WITH OTHER SERVICES !!
     private void ConfigureEventBus(IApplicationBuilder app)
     {
         var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();

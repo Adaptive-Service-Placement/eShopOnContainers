@@ -281,7 +281,7 @@ public class Startup
         services.AddTransient<ProductPriceChangedIntegrationEventHandler>();
         services.AddTransient<OrderStartedIntegrationEventHandler>();
     }
-
+    // !! MODIFY HERE TO IMPLEMENT COMMUNICATION WITH OTHER SERVICES !!
     private void ConfigureEventBus(IApplicationBuilder app)
     {
         var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();

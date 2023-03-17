@@ -81,7 +81,7 @@ public class Startup
         app.UseAuthentication();
         app.UseAuthorization();
     }
-
+    // !! MODIFY HERE TO IMPLEMENT COMMUNICATION WITH OTHER SERVICES !!
     protected virtual void ConfigureEventBus(IApplicationBuilder app)
     {
         var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();

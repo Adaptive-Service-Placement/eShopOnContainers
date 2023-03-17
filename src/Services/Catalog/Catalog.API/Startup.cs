@@ -82,12 +82,13 @@ public class Startup
 
         ConfigureEventBus(app);
     }
-
+    // !! MODIFY HERE TO IMPLEMENT COMMUNICATION WITH OTHER SERVICES !!
     protected virtual void ConfigureEventBus(IApplicationBuilder app)
     {
         var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
         eventBus.Subscribe<OrderStatusChangedToAwaitingValidationIntegrationEvent, OrderStatusChangedToAwaitingValidationIntegrationEventHandler>();
         eventBus.Subscribe<OrderStatusChangedToPaidIntegrationEvent, OrderStatusChangedToPaidIntegrationEventHandler>();
+        eventBus.Subscribe<RandomBasketCatalogEvent, RandomBasketCatalogEventHandler>();
     }
 }
 
@@ -327,6 +328,7 @@ public static class CustomExtensionMethods
         services.AddSingleton<IEventBusSubscriptionsManager, InMemoryEventBusSubscriptionsManager>();
         services.AddTransient<OrderStatusChangedToAwaitingValidationIntegrationEventHandler>();
         services.AddTransient<OrderStatusChangedToPaidIntegrationEventHandler>();
+        services.AddTransient<RandomBasketCatalogEventHandler>();
 
         return services;
     }

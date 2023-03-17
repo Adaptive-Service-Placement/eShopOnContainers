@@ -76,6 +76,19 @@ public class BasketController : ControllerBase
             throw;
         }
 
+        // sends a Random Event to the catalog.api
+        var randomBasketCatalogEventMessage = new RandomBasketCatalogEvent(userId, createListOfRandomNumbers(), createListOfRandomStrings());
+
+        try 
+        {
+            _eventBus.Publish(randomBasketCatalogEventMessage);
+        } catch (Exception ex)
+        {
+            _logger.LogError(ex, "ERROR Publishing integration event: {IntegrationEventId} from {AppName}", randomBasketCatalogEventMessage.Id, Program.AppName);
+
+            throw;
+        }
+
         return Accepted();
     }
 
@@ -85,5 +98,40 @@ public class BasketController : ControllerBase
     public async Task DeleteBasketByIdAsync(string id)
     {
         await _repository.DeleteBasketAsync(id);
+    }
+
+    private List<int> createListOfRandomNumbers() 
+    {
+        Random rand = new Random();
+        List<int> listOfRandomNumbers = new List<int>();
+
+        // minimum size of 10 entries, maximum size of 20 entries
+        int sizeOfList = rand.Next(20, 30+1);
+
+        for (int i = 0; i < sizeOfList; i++)
+        {
+            listOfRandomNumbers.Add(rand.Next());
+        }
+
+        return listOfRandomNumbers;
+    }
+
+    private List<String> createListOfRandomStrings() 
+    {
+        Random rand = new Random();
+        List<String> listOfRandomStrings = new List<String>();
+
+        // minimum size of 10 entries, maximum size of 20 entries
+        int sizeOfList = rand.Next(10, 20+1);
+
+        const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+        for (int i = 0; i < sizeOfList; i++)
+        {
+            // creates a random String with a maximum size of 30
+            listOfRandomStrings.Add(new string(Enumerable.Repeat(chars, 20).Select(s => s[rand.Next(s.Length)]).ToArray()));
+        }
+
+        return listOfRandomStrings;
     }
 }
