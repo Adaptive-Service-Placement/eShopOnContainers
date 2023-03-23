@@ -75,6 +75,7 @@ public class WebhooksController : ControllerBase
         }
     }
 
+    // send random message here, figure out later how to trigger this task
     [Authorize]
     [HttpDelete("{id:int}")]
     [ProducesResponseType((int)HttpStatusCode.Accepted)]

@@ -88,6 +88,7 @@ public class Startup
         eventBus.Subscribe<ProductPriceChangedIntegrationEvent, ProductPriceChangedIntegrationEventHandler>();
         eventBus.Subscribe<OrderStatusChangedToShippedIntegrationEvent, OrderStatusChangedToShippedIntegrationEventHandler>();
         eventBus.Subscribe<OrderStatusChangedToPaidIntegrationEvent, OrderStatusChangedToPaidIntegrationEventHandler>();
+        eventBus.Subscribe<RandomBasketWebhookEvent, RandomBasketWebhookEventHandler>();
     }
 }
 
@@ -212,6 +213,7 @@ internal static class CustomExtensionMethods
         services.AddTransient<ProductPriceChangedIntegrationEventHandler>();
         services.AddTransient<OrderStatusChangedToShippedIntegrationEventHandler>();
         services.AddTransient<OrderStatusChangedToPaidIntegrationEventHandler>();
+        services.AddTransient<RandomBasketWebhookEventHandler>();
 
         return services;
     }

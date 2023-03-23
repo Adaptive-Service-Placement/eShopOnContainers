@@ -129,6 +129,7 @@ public class CatalogController : ControllerBase
         return new PaginatedItemsViewModel<CatalogItem>(pageIndex, pageSize, totalItems, itemsOnPage);
     }
 
+    // send random message here, figure out later how to trigger this task
     // GET api/v1/[controller]/items/type/1/brand[?pageSize=3&pageIndex=10]
     [HttpGet]
     [Route("items/type/{catalogTypeId}/brand/{catalogBrandId:int?}")]
@@ -157,6 +158,7 @@ public class CatalogController : ControllerBase
         return new PaginatedItemsViewModel<CatalogItem>(pageIndex, pageSize, totalItems, itemsOnPage);
     }
 
+    // send random message here, figure out later how to trigger this task
     // GET api/v1/[controller]/items/type/all/brand[?pageSize=3&pageIndex=10]
     [HttpGet]
     [Route("items/type/all/brand/{catalogBrandId:int?}")]
@@ -183,6 +185,7 @@ public class CatalogController : ControllerBase
         return new PaginatedItemsViewModel<CatalogItem>(pageIndex, pageSize, totalItems, itemsOnPage);
     }
 
+    // send random message here, figure out later how to trigger this task
     // GET api/v1/[controller]/CatalogTypes
     [HttpGet]
     [Route("catalogtypes")]
@@ -201,6 +204,7 @@ public class CatalogController : ControllerBase
         return await _catalogContext.CatalogBrands.ToListAsync();
     }
 
+    // send random message here, figure out later how to trigger this task
     //PUT api/v1/[controller]/items
     [Route("items")]
     [HttpPut]
@@ -241,6 +245,7 @@ public class CatalogController : ControllerBase
         return CreatedAtAction(nameof(ItemByIdAsync), new { id = productToUpdate.Id }, null);
     }
 
+    //send random message here, figure out later how to trigger this task
     //POST api/v1/[controller]/items
     [Route("items")]
     [HttpPost]
@@ -259,11 +264,18 @@ public class CatalogController : ControllerBase
 
         _catalogContext.CatalogItems.Add(item);
 
-        await _catalogContext.SaveChangesAsync();
+        // await _catalogContext.SaveChangesAsync();
+
+        // sends random message to Payment service
+        var randomCatalogPaymentEvent = new RandomCatalogPaymentEvent("Created Product: " + product.Name, createListOfRandomNumbers(), createListOfRandomStrings());
+        
+        await _catalogIntegrationEventService.SaveEventAndCatalogContextChangesAsync(randomCatalogPaymentEvent);
+        await _catalogIntegrationEventService.PublishThroughEventBusAsync(randomCatalogPaymentEvent);
 
         return CreatedAtAction(nameof(ItemByIdAsync), new { id = item.Id }, null);
     }
 
+    // send random message here, figure out later how to trigger this task
     //DELETE api/v1/[controller]/id
     [Route("{id}")]
     [HttpDelete]
@@ -280,7 +292,13 @@ public class CatalogController : ControllerBase
 
         _catalogContext.CatalogItems.Remove(product);
 
-        await _catalogContext.SaveChangesAsync();
+        // await _catalogContext.SaveChangesAsync();
+
+        // sends random message to Payment service
+        var randomCatalogPaymentEvent = new RandomCatalogPaymentEvent("Deleted Product: " + product.Name, createListOfRandomNumbers(), createListOfRandomStrings());
+
+        await _catalogIntegrationEventService.SaveEventAndCatalogContextChangesAsync(randomCatalogPaymentEvent);
+        await _catalogIntegrationEventService.PublishThroughEventBusAsync(randomCatalogPaymentEvent);
 
         return NoContent();
     }
@@ -296,5 +314,40 @@ public class CatalogController : ControllerBase
         }
 
         return items;
+    }
+
+    private List<int> createListOfRandomNumbers() 
+    {
+        Random rand = new Random();
+        List<int> listOfRandomNumbers = new List<int>();
+
+        // minimum size of 10 entries, maximum size of 20 entries
+        int sizeOfList = rand.Next(20, 30+1);
+
+        for (int i = 0; i < sizeOfList; i++)
+        {
+            listOfRandomNumbers.Add(rand.Next());
+        }
+
+        return listOfRandomNumbers;
+    }
+
+    private List<String> createListOfRandomStrings() 
+    {
+        Random rand = new Random();
+        List<String> listOfRandomStrings = new List<String>();
+
+        // minimum size of 10 entries, maximum size of 20 entries
+        int sizeOfList = rand.Next(10, 20+1);
+
+        const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+        for (int i = 0; i < sizeOfList; i++)
+        {
+            // creates a random String with a maximum size of 30
+            listOfRandomStrings.Add(new string(Enumerable.Repeat(chars, 20).Select(s => s[rand.Next(s.Length)]).ToArray()));
+        }
+
+        return listOfRandomStrings;
     }
 }

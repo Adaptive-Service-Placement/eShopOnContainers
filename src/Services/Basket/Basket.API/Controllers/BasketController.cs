@@ -1,7 +1,6 @@
 ﻿namespace Microsoft.eShopOnContainers.Services.Basket.API.Controllers;
 
 [Route("api/v1/[controller]")]
-[Authorize]
 [ApiController]
 public class BasketController : ControllerBase
 {
@@ -34,7 +33,20 @@ public class BasketController : ControllerBase
     [HttpPost]
     [ProducesResponseType(typeof(CustomerBasket), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<CustomerBasket>> UpdateBasketAsync([FromBody] CustomerBasket value)
-    {
+    {   
+        var randomBasketPaymentEvent = new RandomBasketPaymentEvent(value.BuyerId, createListOfRandomNumbers(), createListOfRandomStrings());
+
+        try 
+        {
+            _eventBus.Publish(randomBasketPaymentEvent);
+        } 
+        catch(Exception ex) 
+        {
+            _logger.LogError(ex, "ERROR Publishing integration event: {IntegrationEventId} from {AppName}", randomBasketPaymentEvent.Id, Program.AppName);
+            
+            throw;
+        }
+
         return Ok(await _repository.UpdateBasketAsync(value));
     }
 
@@ -82,7 +94,8 @@ public class BasketController : ControllerBase
         try 
         {
             _eventBus.Publish(randomBasketCatalogEventMessage);
-        } catch (Exception ex)
+        } 
+        catch (Exception ex)
         {
             _logger.LogError(ex, "ERROR Publishing integration event: {IntegrationEventId} from {AppName}", randomBasketCatalogEventMessage.Id, Program.AppName);
 
@@ -97,6 +110,18 @@ public class BasketController : ControllerBase
     [ProducesResponseType(typeof(void), (int)HttpStatusCode.OK)]
     public async Task DeleteBasketByIdAsync(string id)
     {
+        var randomBasketWebhookEvent = new RandomBasketWebhookEvent(id, createListOfRandomNumbers(), createListOfRandomStrings());
+
+        try 
+        {
+            _eventBus.Publish(randomBasketWebhookEvent);
+        } 
+        catch(Exception ex) 
+        {
+            _logger.LogError(ex, "ERROR Publishing integration event: {IntegrationEventId} from {AppName}", randomBasketWebhookEvent.Id, Program.AppName);
+
+            throw;
+        }
         await _repository.DeleteBasketAsync(id);
     }
 

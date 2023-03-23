@@ -137,6 +137,9 @@ public class Startup
         }
 
         services.AddTransient<OrderStatusChangedToStockConfirmedIntegrationEventHandler>();
+        services.AddTransient<RandomCatalogPaymentEventHandler>();
+        services.AddTransient<RandomBasketPaymentEventHandler>();
+        services.AddTransient<RandomOrderingPaymentEventHandler>();
         services.AddSingleton<IEventBusSubscriptionsManager, InMemoryEventBusSubscriptionsManager>();
     }
     // !! MODIFY HERE TO IMPLEMENT COMMUNICATION WITH OTHER SERVICES !!
@@ -144,6 +147,9 @@ public class Startup
     {
         var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
         eventBus.Subscribe<OrderStatusChangedToStockConfirmedIntegrationEvent, OrderStatusChangedToStockConfirmedIntegrationEventHandler>();
+        eventBus.Subscribe<RandomCatalogPaymentEvent, RandomCatalogPaymentEventHandler>();
+        eventBus.Subscribe<RandomBasketPaymentEvent, RandomBasketPaymentEventHandler>();
+        eventBus.Subscribe<RandomOrderingPaymentEvent, RandomOrderingPaymentEventHandler>();
     }
 }
 

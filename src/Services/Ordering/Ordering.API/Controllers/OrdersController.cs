@@ -14,19 +14,23 @@ public class OrdersController : ControllerBase
     private readonly IOrderQueries _orderQueries;
     private readonly IIdentityService _identityService;
     private readonly ILogger<OrdersController> _logger;
+    private readonly IEventBus _eventBus;
 
     public OrdersController(
         IMediator mediator,
         IOrderQueries orderQueries,
         IIdentityService identityService,
-        ILogger<OrdersController> logger)
+        ILogger<OrdersController> logger,
+        IEventBus eventBus)
     {
         _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         _orderQueries = orderQueries ?? throw new ArgumentNullException(nameof(orderQueries));
         _identityService = identityService ?? throw new ArgumentNullException(nameof(identityService));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        _eventBus = eventBus;
     }
 
+    // send random message here, figure out later how to trigger this task
     [Route("cancel")]
     [HttpPut]
     [ProducesResponseType((int)HttpStatusCode.OK)]
