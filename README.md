@@ -44,7 +44,7 @@ Web SPA :  http://host.docker.internal:5104/
 
 Below are the other avenues to setup *eShopOnContainers*.
 
-[![Open in Cloud Shell](https://gstatic.com/cloudssh/images/open-btn.svg)](https://shell.cloud.google.com/cloudshell/editor?cloudshell_git_repo=http://https://github.com/Adaptive-Service-Placement/eShopOnContainers.git)
+[![Open in Cloud Shell](https://gstatic.com/cloudssh/images/open-btn.svg)](https://shell.cloud.google.com/cloudshell/editor?cloudshell_git_repo=https://github.com/Adaptive-Service-Placement/eShopOnContainers.git)
 
 ### Basic scenario
 
