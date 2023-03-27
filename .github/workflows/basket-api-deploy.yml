@@ -28,6 +28,9 @@ jobs:
 
       - uses: ./.github/workflows/composite/deploy-helm
         with:
+          project_id: ${{ secrets.PROJECT_ID }}
+          service_account_email: ${{ secrets.GCP_SA_EMAIL }}
+          service_account_key: ${{ secrets.GKE_SA_KEY }}
           location: ${{ env.LOCATION }}
           cluster_name: ${{ secrets.CLUSTER_NAME }}
           resource_group: ${{ secrets.RESOURCE_GROUP }}

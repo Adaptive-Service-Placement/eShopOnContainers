@@ -1,6 +1,15 @@
 name: Deploy Helm chart to GKE
 
 inputs:
+  project_id: 
+    description: "Identification of GCP Project"
+    required: true
+  service_account_email: 
+    description: "Service Account Email"
+    required: true
+  service_account_key:
+    description: "Service Account Key"
+    required: true
   zone:
     description: "Location of Kubernetes Cluster"
     required: true
@@ -33,16 +42,16 @@ runs:
     uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
     with:
       version: '333.0.0'
-      project_id: ${{ secrets.PROJECT_ID }}
-      service_account_email: ${{ secrets.GCP_SA_EMAIL }}
-      service_account_key: ${{ secrets.GKE_SA_KEY }}
+      project_id: ${{ inputs.project_id }}
+      service_account_email: ${{ inputs.service_account_email }}
+      service_account_key: ${{ inputs.service_account_key }}
     id: auth
 
   - name: Configure kubectl
     uses: GoogleCloudPlatform/github-actions/setup-kubectl@master
     with:
       version: 'v1.22.0'
-      project_id: ${{ secrets.PROJECT_ID }}
+      project_id: ${{ inputs.project_id }}
       location: ${{ inputs.zone }}
       cluster: ${{ inputs.cluster_name }}
     id: kubectl
