@@ -68,7 +68,7 @@ spec:
             - name: IdentityUrl
               valueFrom:
                 configMapKeyRef:
-                  name: http://identity-api
+                  name: identity-api.com
                   key: urls__IdentityUrl
           ports:
             - name: http
