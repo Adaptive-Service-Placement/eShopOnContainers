@@ -39,7 +39,7 @@ runs:
   using: "composite"
   steps:
   - name: Authenticate with Google Cloud Platform
-    uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+    uses: GoogleCloudPlatform/github-actions/setup-gcloud@v1
     with:
       version: '333.0.0'
       project_id: ${{ inputs.project_id }}
@@ -48,7 +48,7 @@ runs:
     id: auth
 
   - name: Configure kubectl
-    uses: GoogleCloudPlatform/github-actions/setup-kubectl@master
+    uses: GoogleCloudPlatform/github-actions/setup-kubectl@v1
     with:
       version: 'v1.22.0'
       project_id: ${{ inputs.project_id }}
