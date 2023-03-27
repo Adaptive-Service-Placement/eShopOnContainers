@@ -1,20 +1,20 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.app.svc.basket }}
+  name: basket-api
   labels:
     app: {{ template "basket-api.name" . }}
     chart: {{ template "basket-api.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
-  type: {{ .Values.service.type }}
+  type: {{ ClusterIP }}
   ports:
-    - port: {{ .Values.service.port }}
+    - port: 80
       targetPort: http
       protocol: TCP
       name: http
-    - port: {{ .Values.service.grpcPort }}
+    - port: 81
       targetPort: grpc
       protocol: TCP
       name: grpc
