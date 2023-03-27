@@ -60,11 +60,6 @@ spec:
                 configMapKeyRef:
                   name: rabbitmq
                   key: all__EventBusConnection
-            - name: ApplicationInsights__InstrumentationKey
-              valueFrom:
-                configMapKeyRef:
-                  name: ""
-                  key: all__InstrumentationKey
             - name: AzureServiceBusEnabled
               valueFrom:
                 configMapKeyRef:
