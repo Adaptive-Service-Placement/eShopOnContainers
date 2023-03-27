@@ -53,22 +53,22 @@ spec:
             - name: ConnectionString
               valueFrom:
                 configMapKeyRef:
-                  name: basket-data
+                  name: {{ $cfgname }}
                   key: basket__ConnectionString
             - name: EventBusConnection
               valueFrom:
                 configMapKeyRef:
-                  name: rabbitmq
+                  name: {{ $cfgname }}
                   key: all__EventBusConnection
             - name: AzureServiceBusEnabled
               valueFrom:
                 configMapKeyRef:
-                  name: "false"
+                  name: {{ $cfgname }}
                   key: all__UseAzureServiceBus
             - name: IdentityUrl
               valueFrom:
                 configMapKeyRef:
-                  name: identity-api.com
+                  name: {{ $cfgname }}
                   key: urls__IdentityUrl
           ports:
             - name: http
