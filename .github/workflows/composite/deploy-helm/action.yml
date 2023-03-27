@@ -57,6 +57,7 @@ runs:
     id: kubectl
 
   - name: Deploy Helm chart
+    shell: bash
     run: |
       helm upgrade --install \
         --namespace ${{ inputs.namespace }} \
