@@ -38,6 +38,9 @@ inputs:
 runs:
   using: "composite"
   steps:
+  - name: Checkout code
+    uses: actions/checkout@v2
+
   - name: Authenticate with Google Cloud Platform
     uses: GoogleCloudPlatform/github-actions/setup-gcloud@v1
     with:
