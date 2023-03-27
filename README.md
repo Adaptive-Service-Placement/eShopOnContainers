@@ -44,6 +44,8 @@ Web SPA :  http://host.docker.internal:5104/
 
 Below are the other avenues to setup *eShopOnContainers*.
 
+[![Open in Cloud Shell](https://gstatic.com/cloudssh/images/open-btn.svg)](https://ssh.cloud.google.com/cloudshell/editor?cloudshell_git_repo=https://github.com/Adaptive-Service-Placement/eShopOnContainers&cloudshell_workspace=.&cloudshell_tutorial=docs/cloudshell-tutorial.md)
+
 ### Basic scenario
 
 The basic scenario can be run locally using docker-compose, and also deployed to a local Kubernetes cluster. Refer to these Wiki pages to Get Started:
