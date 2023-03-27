@@ -1,15 +1,14 @@
-name: "Deploy Helm to AKS"
-description: "Deploys a helm chart to AKS"
+name: Deploy Helm chart to GKE
 
 inputs:
-  azure_credentials:
-    description: "Credentials to connect to AKS"
+  zone:
+    description: "Location of Kubernetes Cluster"
     required: true
   cluster_name:
-    description: "Name of AKS cluster"
+    description: "Name of GKE cluster"
     required: true
   resource_group:
-    description: "Resource group of AKS cluster"
+    description: "Resource group of GKE cluster"
     required: true
   registry_host:
     description: "Image registry host e.g. myacr.azureacr.io"
@@ -23,32 +22,37 @@ inputs:
   namespace:
     description: "Namespace to deploy to"
     required: true
+  values:
+    description: "Values for Chart"
+    required: true
 
 runs:
   using: "composite"
   steps:
-  - uses: azure/login@v1
+  - name: Authenticate with Google Cloud Platform
+    uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
     with:
-      creds: ${{ inputs.azure_credentials }}
+      version: '333.0.0'
+      project_id: ${{ secrets.PROJECT_ID }}
+      service_account_email: ${{ secrets.GCP_SA_EMAIL }}
+      service_account_key: ${{ secrets.GKE_SA_KEY }}
+    id: auth
 
-  - uses: azure/aks-set-context@v1
-    name: Set AKS context
+  - name: Configure kubectl
+    uses: GoogleCloudPlatform/github-actions/setup-kubectl@master
     with:
-      creds: '${{ inputs.azure_credentials }}'
-      cluster-name: ${{ inputs.cluster_name }}
-      resource-group: ${{ inputs.resource_group }}
-  
-  - name: Set branch name as env variable
-    shell: bash
+      version: 'v1.22.0'
+      project_id: ${{ secrets.PROJECT_ID }}
+      location: ${{ inputs.zone }}
+      cluster: ${{ inputs.cluster_name }}
+    id: kubectl
+
+  - name: Deploy Helm chart
     run: |
-      currentbranch=$(echo ${GITHUB_REF##*/})
-      echo "running on $currentbranch"
-      echo "BRANCH=$currentbranch" >> $GITHUB_ENV
-  
-  - name: Deploy Chart
-    shell: bash
-    run: |
-      ./deploy-chart.sh -c ${{ inputs.chart }} --dns aks --aks-name ${{ inputs.clusteR_name }} --aks-rg ${{ inputs.resource_group }} -r ${{ inputs.registry_host }} -t $TAG --namespace ${{ inputs.namespace }} --acr-connected
+      helm upgrade --install \
+        --namespace ${{ inputs.namespace }} \
+        --values ${{ inputs.values }} \
+        ${{ inputs.chart }} \
+        .${{ inputs.chart_root }}
     env:
-      TAG: ${{ env.BRANCH }}
-    working-directory: ${{ inputs.chart_root }}
+      KUBECONFIG: ${{ steps.kubectl.outputs.kubeconfig }}

@@ -14,11 +14,13 @@ env:
   CHART: ordering-signalrhub
   NAMESPACE: eshop
   CHART_ROOT: deploy/k8s/helm
+  LOCATION: europe-west3-a
+  VALUES: ./deploy/k8s/helm/ordering-signalrhub/values.yaml
 
 jobs:
   deploy-to-k8s:
-    #if: ${{ github.event_name == 'workflow_dispatch' || github.event_name == 'repository_dispatch' || github.event.workflow_run.conclusion == 'success' }}
-    if: false
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event_name == 'repository_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    #if: false
     runs-on: ubuntu-latest
 
     steps:
@@ -26,10 +28,11 @@ jobs:
 
       - uses: ./.github/workflows/composite/deploy-helm
         with:
-          azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
+          location: ${{ env.LOCATION }}
           cluster_name: ${{ secrets.CLUSTER_NAME }}
           resource_group: ${{ secrets.RESOURCE_GROUP }}
           registry_host: ${{ secrets.REGISTRY_HOST }}
           chart: ${{ env.CHART }}
           chart_root: ${{ env.CHART_ROOT }}
           namespace: ${{ env.NAMESPACE }}
+          values: ${{ env.VALUES }}
