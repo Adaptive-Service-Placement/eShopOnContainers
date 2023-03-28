@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.app.svc.webshoppingapigw }}
+  name: webshoppingapigw
   labels:
     app: {{ template "apigwws.name" . }}
     chart: {{ template "apigwws.chart" . }}
@@ -10,11 +10,11 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-    - port: {{ .Values.service.port }}
+    - port: ClusterIP
       targetPort: http
       protocol: TCP
       name: http
-    - port: {{ .Values.service.adminPort }}
+    - port: 8001
       targetPort: admin
       protocol: TCP
       name: admin
