@@ -16,6 +16,6 @@ metadata:
 spec:
   defaultBackend:
     service:
-      name: /mobileshoppingapigw
+      name: mobileshoppingapigw
       port:
         number: 80
