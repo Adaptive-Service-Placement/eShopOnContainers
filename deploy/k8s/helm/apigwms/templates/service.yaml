@@ -1,20 +1,20 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.app.svc.mobileshoppingapigw }}
+  name: mobileshoppingapigw
   labels:
     app: {{ template "apigwms.name" . }}
     chart: {{ template "apigwms.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
-  type: {{ .Values.service.type }}
+  type: ClusterIP
   ports:
-    - port: {{ .Values.service.port }}
+    - port: 80
       targetPort: http
       protocol: TCP
       name: http
-    - port: {{ .Values.service.adminPort }}
+    - port: 8001
       targetPort: admin
       protocol: TCP
       name: admin     
