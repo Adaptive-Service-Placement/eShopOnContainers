@@ -1,4 +1,3 @@
-{{- if .Values.ingress.enabled -}}
 {{- $ingressPath := include "pathBase" . -}}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
