@@ -14,4 +14,8 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
     nginx.ingress.kubernetes.io/use-regex: "true"
 spec:
-  rules:
+  defaultBackend:
+    service:
+      name: /mobileshoppingapigw
+      port:
+        number: 80
