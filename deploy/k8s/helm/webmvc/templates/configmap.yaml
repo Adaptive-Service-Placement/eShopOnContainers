@@ -15,7 +15,7 @@ metadata:
     heritage: {{ .Release.Service }}
 data:
   all__InstrumentationKey: ""
-  all__UseAzureServiceBus: "{{ .Values.inf.eventbus.useAzure }}"
+  all__UseAzureServiceBus: "false"
   webmvc__keystore: keystore-data
   internalurls__apigwws: http://{{ .Values.app.svc.webshoppingapigw }}
   internalurls__identity__hc: http://identity-api/hc
