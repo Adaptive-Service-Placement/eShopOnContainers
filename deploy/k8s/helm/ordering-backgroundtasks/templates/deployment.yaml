@@ -22,10 +22,7 @@ spec:
         app: {{ template "ordering-backgroundtasks.name" . }}
         release: {{ .Release.Name }}
     spec:
-      {{ if .Values.inf.registry -}}
-      imagePullSecrets:
-      - name: {{ .Values.inf.registry.secretName }}
-      {{- end }}
+      
       containers:
         - name: {{ .Chart.Name }}
           {{ if .Values.probes -}}

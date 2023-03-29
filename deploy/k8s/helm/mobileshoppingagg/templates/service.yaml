@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.app.svc.mobileshoppingagg }}
+  name: mobileshoppingagg
   labels:
     app: {{ template "mobileshoppingagg.name" . }}
     chart: {{ template "mobileshoppingagg.chart" . }}

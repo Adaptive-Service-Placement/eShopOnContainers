@@ -21,15 +21,9 @@ spec:
       labels:
         app: {{ template "webhooks-web.name" . }}
         release: {{ .Release.Name }}
-      {{ if .Values.inf.mesh.enabled -}}
-      annotations:
-        linkerd.io/inject: enabled
-      {{- end }}             
+                   
     spec:
-      {{ if .Values.inf.registry -}}
-      imagePullSecrets:
-      - name: {{ .Values.inf.registry.secretName }}
-      {{- end }}
+      
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ template "fqdn-image" . }}:{{ .Values.image.tag }}"

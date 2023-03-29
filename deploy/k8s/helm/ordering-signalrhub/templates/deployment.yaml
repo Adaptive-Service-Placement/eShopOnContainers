@@ -21,10 +21,7 @@ spec:
         app: {{ template "ordering-signalrhub.name" . }}
         release: {{ .Release.Name }}
     spec:
-      {{ if .Values.inf.registry -}}
-      imagePullSecrets:
-      - name: {{ .Values.inf.registry.secretName }}
-      {{- end }}
+      
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ template "fqdn-image" . }}:{{ .Values.image.tag }}"

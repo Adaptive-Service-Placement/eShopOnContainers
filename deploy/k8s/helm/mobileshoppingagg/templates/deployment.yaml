@@ -21,15 +21,8 @@ spec:
       labels:
         app: {{ template "mobileshoppingagg.name" . }}
         release: {{ .Release.Name }}
-      {{ if .Values.inf.mesh.enabled -}}
-      annotations:
-        linkerd.io/inject: enabled
-      {{- end }}             
-    spec:
-      {{ if .Values.inf.registry -}}
-      imagePullSecrets:
-      - name: {{ .Values.inf.registry.secretName }}
-      {{- end }}
+                   
+    spec:     
       containers:
         - name: {{ .Chart.Name }}
           {{ if .Values.probes -}}
