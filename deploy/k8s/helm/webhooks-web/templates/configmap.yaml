@@ -1,7 +1,4 @@
 {{- $name := include "webhooks-web.fullname" . -}}
-{{- $identity := include "url-of" (list .Values.app.ingress.entries.identity .) -}}
-{{- $webhooksweb := include "url-of" (list .Values.app.ingress.entries.webhooksweb .) -}}
-{{- $webhooks := include "url-of" (list .Values.app.ingress.entries.webhooks .) -}}
 {{- $protocol := include "protocol" . -}}
 
 apiVersion: v1
@@ -14,7 +11,7 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 data:
-  urls__webhooks: {{ $protocol }}://{{ $webhooks }}
-  identity_e: {{ $protocol }}://{{ $identity }}
-  webhooksweb_e: {{ $protocol }}://{{ $webhooksweb }}
-  urls_webhooksweb: http://{{ .Values.app.svc.webhooksweb }}
+  urls__webhooks: {{ $protocol }}://testapplication.com/webhooks-api
+  identity_e: {{ $protocol }}://testapplication.com/identity
+  webhooksweb_e: {{ $protocol }}://testapplication.com/webhooks-web
+  urls_webhooksweb: http://webhooks-client

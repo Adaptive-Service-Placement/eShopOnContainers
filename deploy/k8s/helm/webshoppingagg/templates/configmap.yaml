@@ -1,5 +1,4 @@
 {{- $name := include "webshoppingagg.fullname" . -}}
-{{- $identity := include "url-of" (list .Values.app.ingress.entries.identity .) -}}
 {{- $protocol := include "protocol" . -}}
 
 apiVersion: v1
@@ -26,4 +25,4 @@ data:
   internalurls__grpcBasket: "http://basket-api:{{ .Values.service.grpcPort }}"
   internalurls__grpcCatalog: "http://catalog-api:{{ .Values.service.grpcPort }}"
   internalurls__grpcOrdering: "http://ordering-api:{{ .Values.service.grpcPort }}"
-  urls__IdentityUrlExternal: {{ $protocol }}://{{ $identity }}
+  urls__IdentityUrlExternal: {{ $protocol }}://testapplication.com/identity

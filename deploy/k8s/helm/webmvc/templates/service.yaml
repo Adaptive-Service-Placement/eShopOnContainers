@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.app.svc.mvc }}
+  name: webmvc
   labels:
     app: {{ template "webmvc.name" . }}
     chart: {{ template "webmvc.chart" . }}

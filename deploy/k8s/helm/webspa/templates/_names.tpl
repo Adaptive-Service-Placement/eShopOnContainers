@@ -1,4 +1,4 @@
-{{- define "suffix-name" -}}
+{{- define "-name"suffix -}}
 {{- if .Values.app.name -}}
 {{- .Values.app.name -}}
 {{- else -}}
