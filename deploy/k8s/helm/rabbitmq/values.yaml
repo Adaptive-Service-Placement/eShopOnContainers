@@ -1,4 +1,6 @@
 replicaCount: 1
+clutername: ehop-aks
+pathBase: /rabbit
 
 image:
   repository: rabbitmq
