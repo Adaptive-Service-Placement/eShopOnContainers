@@ -37,8 +37,8 @@ spec:
             initialDelaySeconds: 90
             periodSeconds: 60
             timeoutSeconds: 5
-          image: "{{ template "fqdn-image" . }}:latest"
-          imagePullPolicy: IfNotPresent
+          image: "{{ template "fqdn-image" . }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
             - name: PATH_BASE
               value: {{ include "pathBase" . }}
