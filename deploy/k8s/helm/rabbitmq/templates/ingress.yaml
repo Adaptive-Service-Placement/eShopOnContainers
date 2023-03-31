@@ -23,7 +23,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: rabbitmq-management
+                name: rabbitmq
                 port:
                   name: http
   {{- end }}
