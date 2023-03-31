@@ -4,7 +4,7 @@ pathBase: /webhooks-api
 
 image:
   repository: adaptiveserviceplacement/webhooks.api
-  tag: latest
+  tag: dev
   pullPolicy: IfNotPresent
 
 service:

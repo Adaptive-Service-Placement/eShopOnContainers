@@ -31,5 +31,5 @@
 {{- end -}}
 
 {{- define "fqdn-image" -}}
-eshop/basket.api
+{{- .Values.image.repository -}}
 {{- end -}} 

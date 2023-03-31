@@ -4,7 +4,7 @@ pathBase: /
 
 image:
   repository: adaptiveserviceplacement/webspa
-  tag: latest
+  tag: dev
   pullPolicy: IfNotPresent
 
 service:

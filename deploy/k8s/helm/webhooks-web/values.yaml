@@ -4,7 +4,7 @@ pathBase: /webhooks-web
 
 image:
   repository: adaptiveserviceplacement/webhooks.client
-  tag: latest
+  tag: dev
   pullPolicy: IfNotPresent
 
 service:

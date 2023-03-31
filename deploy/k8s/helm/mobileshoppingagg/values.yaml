@@ -4,7 +4,7 @@ pathBase: /mobileshoppingagg
 
 image:
   repository: adaptiveserviceplacement/mobileshoppingagg
-  tag: latest
+  tag: dev
   pullPolicy: IfNotPresent
 
 service:

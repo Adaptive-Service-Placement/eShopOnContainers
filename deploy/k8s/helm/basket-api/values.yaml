@@ -4,7 +4,7 @@ pathBase: /basket-api
 
 image:
   repository: adaptiveserviceplacement/basket.api
-  tag: latest
+  tag: dev
   pullPolicy: IfNotPresent
 
 service:

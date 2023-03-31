@@ -4,7 +4,7 @@ pathBase: /catalog-api
 
 image:
   repository: adaptiveserviceplacement/catalog.api
-  tag: latest
+  tag: dev
   pullPolicy: IfNotPresent
 
 service:
