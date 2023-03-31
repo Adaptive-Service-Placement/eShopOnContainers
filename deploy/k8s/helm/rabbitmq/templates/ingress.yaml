@@ -1,0 +1,28 @@
+{{- if .Values.ingress.enabled -}}
+{{- $ingressPath := include "pathBase" . -}}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ template "rabbitmq.fullname" . }}
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+  labels:
+    app: {{ template "rabbitmq.name" . }}
+    chart: {{ template "rabbitmq.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  rules:
+    {{- range .Values.ingress.hosts }}
+    - host: {{ . }}
+      http:
+        paths:
+          - path: {{ $ingressPath }}
+            pathType: Prefix
+            backend:
+              service:
+                name: rabbitmq-management
+                port:
+                  name: http
+  {{- end }}
+{{- end }}

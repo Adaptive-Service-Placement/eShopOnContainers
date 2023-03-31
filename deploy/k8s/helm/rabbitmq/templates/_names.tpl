@@ -6,3 +6,8 @@
 {{- printf "%s" "rabbitmq" -}}
 {{- end -}}
 {{- end -}}
+
+
+{{- define "pathBase" -}}
+{{- .Values.pathBase -}}
+{{- end -}}
