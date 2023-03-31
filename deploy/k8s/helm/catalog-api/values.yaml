@@ -3,7 +3,7 @@ clusterName: eshop-aks
 pathBase: /catalog-api
 
 image:
-  repository: eshop/catalog.api
+  repository: adaptiveserviceplacement/catalog.api
   tag: latest
   pullPolicy: IfNotPresent
 
