@@ -49,7 +49,7 @@ echo "####### Deploying payment-api ######"
 helm upgrade --install payment-chart deploy/k8s/helm/payment-api/ --values deploy/k8s/helm/payment-api/values.yaml
 
 echo "####### Deploying tls-support ######"
-helm upgrade --install tls-support-chart deploy/k8s/helm/tls-support/ --values deploy/k8s/helm/tls-support/values-staging.yaml
+helm upgrade --install tls-support-chart deploy/k8s/helm/tls-support/ --values deploy/k8s/helm/tls-support/values.yaml
 
 echo "####### Deploying webhooks-api ######"
 helm upgrade --install webhooks-chart deploy/k8s/helm/webhooks-api/ --values deploy/k8s/helm/webhooks-api/values.yaml
