@@ -1,70 +1,64 @@
 #!/usr/bin/env bash
 
-echo "####### Release sql-data ######"
-helm uninstall sql-data-chart
+echo "####### Release eshop-apigwms ######"
+helm uninstall eshop-apigwms
 
-echo "####### Release rabbitmq ######"
-helm uninstall rabbitmq-chart
+echo "####### Release eshop-apigwws ######"
+helm uninstall eshop-apigwws
 
-echo "####### Release apigwms ######"
-helm uninstall apigwms-chart
+echo "####### Release eshop-basket-api ######"
+helm uninstall eshop-basket-api
 
-echo "####### Release apigwws ######"
-helm uninstall apigwws-chart
+echo "####### Release eshop-basket-data ######"
+helm uninstall eshop-basket-data
 
-echo "####### Release basket-api ######"
-helm uninstall basket-chart
+echo "####### Release eshop-catalog-api ######"
+helm uninstall eshop-catalog-api
 
-echo "####### Release basket-data ######"
-helm uninstall basket-data-chart
+echo "####### Release eshop-identity-api ######"
+helm uninstall eshop-identity-api
 
-echo "####### Release catalog-api ######"
-helm uninstall catalog-chart
+echo "####### Release eshop-keystore-data ######"
+helm uninstall eshop-keystore-data
 
-echo "####### Release eshop-common ######"
-helm uninstall eshop-common-chart
+echo "####### Release eshop-mobileshoppingagg ######"
+helm uninstall eshop-mobileshoppingagg
 
-echo "####### Release identity-api ######"
-helm uninstall identity-chart
+echo "####### Release eshop-nosql-data ######"
+helm uninstall eshop-nosql-data
 
-echo "####### Release keystore-data ######"
-helm uninstall keystore-chart
+echo "####### Release eshop-ordering-api ######"
+helm uninstall eshop-ordering-api
 
-echo "####### Release mobileshoppingagg ######"
-helm uninstall mobileshoppingagg-chart
+echo "####### Release eshop-ordering-backgroundtasks ######"
+helm uninstall eshop-ordering-backgroundtasks
 
-echo "####### Release nosql-data ######"
-helm uninstall nosql-chart
+echo "####### Release eshop-ordering-signalrhub ######"
+helm uninstall eshop-ordering-signalrhub
 
-echo "####### Release ordering-api ######"
-helm uninstall ordering-chart
+echo "####### Release eshop-payment-api ######"
+helm uninstall eshop-payment-api
 
-echo "####### Release ordering-backgroundtasks ######"
-helm uninstall ordering-backgroundtasks-chart
+echo "####### Release eshop-rabbitmq ######"
+helm uninstall eshop-rabbitmq
 
-echo "####### Release ordering-signalrhub ######"
-helm uninstall ordering-signalrhub-chart
+echo "####### Release eshop-sql-data ######"
+helm uninstall eshop-sql-data
 
-echo "####### Release payment-api ######"
-helm uninstall payment-chart
+echo "####### Release eshop-webhooks-api ######"
+helm uninstall eshop-webhooks-api
 
-echo "####### Release tls-support ######"
-helm uninstall tls-support-chart
+echo "####### Release eshop-webhooks-web ######"
+helm uninstall eshop-webhooks-web
 
-echo "####### Release webhooks-api ######"
-helm uninstall webhooks-chart
+echo "####### Release eshop-webmvc ######"
+helm uninstall eshop-webmvc
 
-echo "####### Release webhooks-web ######"
-helm uninstall webhooks-web-chart
+echo "####### Release eshop-webshoppingagg ######"
+helm uninstall eshop-webshoppingagg
 
-echo "####### Release webmvc ######"
-helm uninstall webmvc-chart
+echo "####### Release eshop-webspa ######"
+helm uninstall eshop-webspa
 
-echo "####### Release webshoppingagg ######"
-helm uninstall webshoppingagg-chart
-
-echo "####### Release webspa ######"
-helm uninstall webspa-chart
-
-echo "####### Release webstatus ######"
-helm uninstall webstatus-chart
+echo "####### Release eshop-webstatus ######"
+helm uninstall eshop-webstatus
