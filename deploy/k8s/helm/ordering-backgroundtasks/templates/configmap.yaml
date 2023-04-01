@@ -13,7 +13,7 @@ metadata:
     heritage: {{ .Release.Service }}
 data:
   ordering__ConnectionString: Server={{ $sqlsrv }};Initial Catalog=OrderingDb;User Id=sa;Password=Pass@word;TrustServerCertificate=true;
-  ordering__EnableLoadTest: ""
+  ordering__EnableLoadTest: "{{ .Values.inf.misc.useLoadTest }}"
   all__EventBusConnection: rabbitmq
   all__InstrumentationKey: ""
   all__UseAzureServiceBus: "false"

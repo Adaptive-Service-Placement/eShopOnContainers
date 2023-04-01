@@ -32,7 +32,7 @@ data:
   name__ordering__hc: Ordering HTTP Check
   internalurls__ordering__hc: http://ordering-api/hc
   name__orderingbackground__hc: Ordering HTTP Background Check
-  internalurls__orderingbackground__hc: http://ordering-backgroundtasks/hc
+  internalurls__orderingbackground__hc: http://{{ .Values.app.svc.orderingbackgroundtasks }}/hc
   name__basket__hc: Basket HTTP Check
   internalurls__basket__hc: http://basket-api/hc
   name__catalog__hc: Catalog HTTP Check
