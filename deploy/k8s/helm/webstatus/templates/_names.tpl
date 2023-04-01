@@ -7,8 +7,11 @@
 {{- end -}}
 
 {{- define "sql-name" -}}
-
+{{- if .Values.inf.sql.host -}}
+{{- .Values.inf.sql.host -}}
+{{- else -}}
 {{- printf "%s" "sql-data" -}}
+{{- end -}}
 {{- end -}}
 
 {{- define "mongo-name" -}}
@@ -30,9 +33,18 @@
 {{- end -}}
 
 {{- define "pathBase" -}}
+{{- if .Values.inf.k8s.suffix -}}
+{{- $suffix := include "suffix-name" . -}}
+{{- printf "%s-%s"  .Values.pathBase $suffix -}}
+{{- else -}}
 {{- .Values.pathBase -}}
+{{- end -}}
 {{- end -}}
 
 {{- define "fqdn-image" -}}
+{{- if .Values.inf.registry -}}
+{{- printf "%s/%s" .Values.inf.registry.server .Values.image.repository -}}
+{{- else -}}
 {{- .Values.image.repository -}}
+{{- end -}}
 {{- end -}}

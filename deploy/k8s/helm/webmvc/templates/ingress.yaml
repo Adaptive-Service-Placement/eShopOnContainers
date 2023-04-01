@@ -14,8 +14,14 @@ metadata:
   annotations:
 {{ toYaml . | indent 4 }}
 {{- end }}
-
-
+{{- if and .Values.inf.tls.enabled .Values.inf.tls.issuer }}
+    cert-manager.io/issuer: {{ .Values.inf.tls.issuer }} 
+{{- end }}
+{{- if .Values.inf.mesh.enabled }} 
+{{- with .Values.ingress.mesh.annotations }}
+{{ toYaml . | indent 4 }}
+{{- end }}
+{{- end }}
 spec:
 {{- if .Values.ingress.tls }}
   tls:

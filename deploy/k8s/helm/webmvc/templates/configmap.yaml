@@ -14,11 +14,11 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 data:
-  all__InstrumentationKey: ""
+  all__InstrumentationKey: "{{ .Values.inf.appinsights.key }}"
   all__UseAzureServiceBus: "{{ .Values.inf.eventbus.useAzure }}"
-  webmvc__keystore: keystore-data
+  webmvc__keystore: {{ .Values.inf.redis.keystore.constr }}
   internalurls__apigwws: http://{{ .Values.app.svc.webshoppingapigw }}
-  internalurls__identity__hc: http://identity-api/hc
+  internalurls__identity__hc: http://{{ .Values.app.svc.identity }}/hc
   urls__apigwws: {{ $protocol }}://{{ $webshoppingapigw }}
   urls__mvc: {{ $protocol }}://{{ $mvc }}
   urls__IdentityUrl: {{ $protocol }}://{{ $identity }}

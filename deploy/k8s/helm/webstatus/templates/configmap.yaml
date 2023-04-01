@@ -14,9 +14,9 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 data:
-  all__InstrumentationKey: ""
+  all__InstrumentationKey: "{{ .Values.inf.appinsights.key }}"
   all__UseAzureServiceBus: "{{ .Values.inf.eventbus.useAzure }}"
-  webstatus__keystore: keystore-data
+  webstatus__keystore: {{ .Values.inf.redis.keystore.constr }}
   name__mvc__hc: WebMVC HTTP Check
   internalurls__mvc__hc: http://{{ .Values.app.svc.mvc }}/hc
   name__spa__hc: WebSPA HTTP Check
@@ -38,7 +38,7 @@ data:
   name__catalog__hc: Catalog HTTP Check
   internalurls__catalog__hc: http://{{ .Values.app.svc.catalog }}/hc
   name__identity__hc: Identity HTTP Check
-  internalurls__identity__hc: http://identity-api/hc
+  internalurls__identity__hc: http://{{ .Values.app.svc.identity }}/hc
   name__payment__hc: Payment HTTP Check
   internalurls__payment__hc: http://{{ .Values.app.svc.payment }}/hc
   name__signalrhub__hc: Ordering SignalR Hub HTTP Check
