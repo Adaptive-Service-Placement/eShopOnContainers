@@ -26,5 +26,3 @@ spec:
           value: example
         - name: MYSQL_DATABASE
           value: myapp_db
-        imagePullSecrets:
-        - name: myregistrykey
