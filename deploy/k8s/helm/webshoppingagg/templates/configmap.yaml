@@ -14,16 +14,16 @@ metadata:
 data:
   all__InstrumentationKey: ""
   webshoppingagg__keystore: keystore-data
-  internalurls__basket: http://basket-api
-  internalurls__catalog: http://catalog-api
+  internalurls__basket: http://{{ .Values.app.svc.basket }}
+  internalurls__catalog: http://{{ .Values.app.svc.catalog }}
   internalurls__identity: http://identity-api
-  internalurls__ordering: http://ordering-api
-  internalurls__basket__hc: http://basket-api/hc
-  internalurls__catalog__hc: http://catalog-api/hc
+  internalurls__ordering: http://{{ .Values.app.svc.ordering }}
+  internalurls__basket__hc: http://{{ .Values.app.svc.basket }}/hc
+  internalurls__catalog__hc: http://{{ .Values.app.svc.catalog }}/hc
   internalurls__identity__hc: http://identity-api/hc
-  internalurls__ordering__hc: http://ordering-api/hc
-  internalurls__payment__hc: http://payment-api/hc
-  internalurls__grpcBasket: "http://basket-api:{{ .Values.service.grpcPort }}"
-  internalurls__grpcCatalog: "http://catalog-api:{{ .Values.service.grpcPort }}"
-  internalurls__grpcOrdering: "http://ordering-api:{{ .Values.service.grpcPort }}"
+  internalurls__ordering__hc: http://{{ .Values.app.svc.ordering }}/hc
+  internalurls__payment__hc: http://{{ .Values.app.svc.payment }}/hc
+  internalurls__grpcBasket: "http://{{ .Values.app.svc.basket }}:{{ .Values.service.grpcPort }}"
+  internalurls__grpcCatalog: "http://{{ .Values.app.svc.catalog }}:{{ .Values.service.grpcPort }}"
+  internalurls__grpcOrdering: "http://{{ .Values.app.svc.ordering }}:{{ .Values.service.grpcPort }}"
   urls__IdentityUrlExternal: {{ $protocol }}://{{ $identity }}
