@@ -10,10 +10,10 @@ metadata:
     chart: {{ template "webmvc.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
-{{- with .Values.ingress.annotations }}
   annotations:
-{{ toYaml . | indent 4 }}
-{{- end }}
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    kubernetes.io/ingress.class: nginx
+    service.beta.kubernetes.io/do-loadbalancer-protocol: http
 {{- if and .Values.inf.tls.enabled .Values.inf.tls.issuer }}
     cert-manager.io/issuer: {{ .Values.inf.tls.issuer }} 
 {{- end }}
