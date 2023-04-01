@@ -1,5 +1,6 @@
 {{- $name := include "webhooks-api.fullname" . -}}
 {{- $sqlsrv := include "sql-name" . -}}
+{{- $identity := include "url-of" (list .Values.app.ingress.entries.identity .) -}}
 {{- $protocol := include "protocol" . -}}
 
 apiVersion: v1
@@ -13,8 +14,8 @@ metadata:
     heritage: {{ .Release.Service }}
 data:
   webhooks__ConnectionString: Server={{ $sqlsrv }};Initial Catalog=WebhooksDb;User Id=sa;Password=Pass@word;TrustServerCertificate=true;
-  urls__IdentityUrl: http://testapplication.com/identity
-  urls__IdentityUrlExternal: {{ $protocol }}://testapplication.com/identity
+  urls__IdentityUrl: http://{{ $identity }}
+  urls__IdentityUrlExternal: {{ $protocol }}://{{ $identity }}
   all__EventBusConnection: rabbitmq
   all__InstrumentationKey: ""
   all__UseAzureServiceBus: "false"

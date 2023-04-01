@@ -34,5 +34,5 @@ app:                                                    # app global settings
       webshoppingagg: webshoppingagg                    # service name for web shopping aggregator
       mobileshoppingagg: mobileshoppingagg              # service name for mobile shopping aggregator
       payment: payment-api                              # service name for payment api
-      webhooks:    webhooks-api                         # service name for webhooks api
+      webhooks: webhooks-api                            # service name for webhooks api
       webhooksweb: webhooks-client                      # service name for webhooks web
