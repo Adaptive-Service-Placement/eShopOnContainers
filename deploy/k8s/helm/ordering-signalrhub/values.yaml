@@ -4,7 +4,7 @@ pathBase: /ordering-signalrhub
 
 image:
   repository: adaptiveserviceplacement/ordering.signalrhub
-  tag: dev
+  tag: latest
   pullPolicy: IfNotPresent
 
 service:

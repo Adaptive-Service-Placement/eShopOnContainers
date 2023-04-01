@@ -4,7 +4,7 @@ pathBase: /identity
 
 image:
   repository: adaptiveserviceplacement/identity.api
-  tag: dev
+  tag: latest
   pullPolicy: IfNotPresent
 
 service:

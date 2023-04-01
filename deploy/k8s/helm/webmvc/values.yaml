@@ -4,7 +4,7 @@ pathBase: /webmvc
 
 image:
   repository: adaptiveserviceplacement/webmvc
-  tag: dev
+  tag: latest
   pullPolicy: IfNotPresent
 
 service:

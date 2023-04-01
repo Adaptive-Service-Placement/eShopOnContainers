@@ -4,7 +4,7 @@ pathBase: /webstatus
 
 image:
   repository: adaptiveserviceplacement/webstatus
-  tag: dev
+  tag: latest
   pullPolicy: IfNotPresent
 
 service:

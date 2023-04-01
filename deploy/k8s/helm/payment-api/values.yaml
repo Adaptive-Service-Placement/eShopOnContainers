@@ -4,7 +4,7 @@ pathBase: /payment-api
 
 image:
   repository: adaptiveserviceplacement/payment.api
-  tag: dev
+  tag: latest
   pullPolicy: IfNotPresent
 
 service:
