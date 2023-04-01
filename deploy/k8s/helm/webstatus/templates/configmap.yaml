@@ -15,7 +15,7 @@ metadata:
     heritage: {{ .Release.Service }}
 data:
   all__InstrumentationKey: ""
-  all__UseAzureServiceBus: "false"
+  all__UseAzureServiceBus: "{{ .Values.inf.eventbus.useAzure }}"
   webstatus__keystore: keystore-data
   name__mvc__hc: WebMVC HTTP Check
   internalurls__mvc__hc: http://{{ .Values.app.svc.mvc }}/hc

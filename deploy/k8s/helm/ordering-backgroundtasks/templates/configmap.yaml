@@ -12,10 +12,10 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 data:
-  ordering__ConnectionString: Server={{ $sqlsrv }};Initial Catalog=OrderingDb;User Id=sa;Password=Pass@word;TrustServerCertificate=true;
+  ordering__ConnectionString: Server={{ $sqlsrv }};Initial Catalog={{ .Values.inf.sql.ordering.db }};User Id=sa;Password=Pass@word;TrustServerCertificate=true;
   ordering__EnableLoadTest: "{{ .Values.inf.misc.useLoadTest }}"
-  all__EventBusConnection: rabbitmq
+  all__EventBusConnection: {{ .Values.inf.eventbus.constr }}
   all__InstrumentationKey: ""
-  all__UseAzureServiceBus: "false"
+  all__UseAzureServiceBus: "{{ .Values.inf.eventbus.useAzure }}"
   graceperiodmanager__CheckUpdateTime: "{{ .Values.cfg.checkUpdateTime }}"
   graceperiodmanager__GracePeriodTime: "{{ .Values.cfg.gracePeriodTime }}"
