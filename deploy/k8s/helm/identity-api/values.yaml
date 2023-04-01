@@ -3,8 +3,8 @@ clusterName: eshop-aks
 pathBase: /identity
 
 image:
-  repository: eshop/identity.api
-  tag: latest
+  repository: adaptiveserviceplacement/identity.api
+  tag: dev
   pullPolicy: IfNotPresent
 
 service:
