@@ -31,8 +31,8 @@ env:
     - name: SPRING_DATASOURCE_URL
       value: jdbc:mysql://mysql:3306/systemdatabase?useSSL=false&allowPublicKeyRetrieval=true
     - name: SPRING_DATASOURCE_USERNAME
-      value: root
+      value: 'root'
     - name: SPRING_DATASOURCE_PASSWORD
-      value: root
+      value: 'root'
     - name: SPRING_RABBITMQ_HOST
       value: rabbitmq

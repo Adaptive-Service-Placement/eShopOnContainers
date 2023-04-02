@@ -37,6 +37,8 @@ spec:
           env:
             - name: PATH_BASE
               value: {{ include "pathBase" . }}
+            - name: k8sname
+              value: {{ .Values.clusterName }}
           {{- if .Values.env.values -}}
           {{- range .Values.env.values }}
             - name: {{ .name }}
