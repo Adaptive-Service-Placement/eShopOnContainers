@@ -1,0 +1,38 @@
+replicaCount: 1
+clusterName: eshop-aks
+pathBase: /monitoring-service
+
+image:
+  repository: adaptiveserviceplacement/monitoring-service
+  tag: dev
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: false
+  annotations: {}
+  tls: []
+
+resources: {}
+
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+# env defines the environment variables that will be declared in the pod
+env:
+  values:
+    - name: SPRING_DATASOURCE_URL
+      value: jdbc:mysql://mysql:3306/systemdatabase?useSSL=false&allowPublicKeyRetrieval=true
+    - name: SPRING_DATASOURCE_USERNAME
+      value: root
+    - name: SPRING_DATASOURCE_PASSWORD
+      value: root
+    - name: SPRING_RABBITMQ_HOST
+      value: rabbitmq

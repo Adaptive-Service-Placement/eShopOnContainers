@@ -22,6 +22,11 @@ inf:
       db: IdentityDb        # Ordering API SQL db name
     webhooks:
       db: WebhooksDb        # Webhooks DB
+  mysql:
+    common:
+      user: root
+      pwd: root
+      database: systemdatabase
   mongo:
     host: #my-nosql-data    # Uncomment to use specify custom mongo host. By default nosql-data is used
   redis:                    # inf.redis defines the redis' connection strings
