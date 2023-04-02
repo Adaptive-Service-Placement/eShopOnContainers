@@ -6,19 +6,11 @@
 {{- end -}}
 {{- end -}}
 
-{{- define "sql-name" -}}
-{{- if .Values.inf.sql.host -}}
-{{- .Values.inf.sql.host -}}
+{{- define "mysql-name" -}}
+{{- if .Values.inf.mysql.host -}}
+{{- .Values.inf.mysql.host -}}
 {{- else -}}
-{{- printf "%s" "sql-data" -}}
-{{- end -}}
-{{- end -}}
-
-{{- define "mongo-name" -}}
-{{- if .Values.inf.mongo.host -}}
-{{- .Values.inf.mongo.host -}}
-{{- else -}}
-{{- printf "%s" "nosql-data" -}}
+{{- printf "%s" "mysql" -}}
 {{- end -}}
 {{- end -}}
 
