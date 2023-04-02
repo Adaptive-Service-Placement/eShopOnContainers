@@ -39,12 +39,14 @@ spec:
               value: {{ include "pathBase" . }}
             - name: k8sname
               value: {{ .Values.clusterName }}
-          {{- if .Values.env.values -}}
-          {{- range .Values.env.values }}
-            - name: {{ .name }}
-              value: {{ .value }}
-          {{- end -}}
-          {{- end -}}
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:mysql://mysql:3306/systemdatabase?useSSL=false&allowPublicKeyRetrieval=true
+            - name: SPRING_DATASOURCE_USERNAME
+              value: root
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: root
+            - name: SPRING_RABBITMQ_HOST
+              value: rabbitmq
           ports:
             - name: http
               containerPort: 80
