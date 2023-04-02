@@ -3,8 +3,8 @@ kind: Service
 metadata:
   name: monitoring-service
   labels: 
-    app: monitoring-service
-    chart: monitoring-service-
+    app: {{ template "monitoring-service.name" . }}
+    chart: {{ template "monitoring-service.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
