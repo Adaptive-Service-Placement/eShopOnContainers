@@ -24,6 +24,12 @@ helm uninstall eshop-keystore-data
 echo "####### Release eshop-mobileshoppingagg ######"
 helm uninstall eshop-mobileshoppingagg
 
+echo "####### Release eshop-mysql ######"
+helm uninstall eshop-mysql
+
+echo "####### Release eshop-monitoring-service ######"
+helm uninstall eshop-monitoring-service
+
 echo "####### Release eshop-nosql-data ######"
 helm uninstall eshop-nosql-data
 
