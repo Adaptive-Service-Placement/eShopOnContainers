@@ -9,7 +9,13 @@ image:
 
 service:
   type: ClusterIP
-  port: 5672
+  ports:
+    - name: amqp
+      port: 5672
+      targetPort: 5672
+    - name: management
+      port: 15672
+      targetPort: 15672
 
 ingress:
   enabled: true
