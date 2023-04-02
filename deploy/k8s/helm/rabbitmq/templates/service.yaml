@@ -17,7 +17,7 @@ spec:
     - port: 15672
       targetPort: 15672
       protocol: TCP
-      name: http
+      name: management
   selector:
     app: {{ template "rabbitmq.name" . }}
     release: {{ .Release.Name }}

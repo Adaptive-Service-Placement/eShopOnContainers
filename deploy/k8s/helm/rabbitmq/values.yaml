@@ -10,7 +10,7 @@ image:
 service:
   type: ClusterIP
   ports:
-    - name: amqp
+    - name: http
       port: 5672
       targetPort: 5672
     - name: management
