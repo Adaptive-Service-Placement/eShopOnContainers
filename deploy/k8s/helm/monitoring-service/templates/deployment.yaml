@@ -42,7 +42,7 @@ spec:
           {{- if .Values.env.values -}}
           {{- range .Values.env.values }}
             - name: {{ .name }}
-              value: {{ .value | quote }}
+              value: {{ .value }}
           {{- end -}}
           {{- end -}}
           ports:
