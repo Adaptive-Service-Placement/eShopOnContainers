@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mapping-service
+  labels: 
+    app: {{ template "mapping-service.name" . }}
+    chart: {{ template "mapping-service.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: 80
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app: {{ template "mapping-service.name" . }}
+    release: {{ .Release.Name }}
