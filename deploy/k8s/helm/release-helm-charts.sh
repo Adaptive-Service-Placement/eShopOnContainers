@@ -30,6 +30,9 @@ helm uninstall eshop-mysql
 echo "####### Release eshop-monitoring-service ######"
 helm uninstall eshop-monitoring-service
 
+echo "####### Release eshop-mapping-service ######"
+helm uninstall eshop-mapping-service
+
 echo "####### Release eshop-nosql-data ######"
 helm uninstall eshop-nosql-data
 
