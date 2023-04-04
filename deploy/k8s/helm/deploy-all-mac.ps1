@@ -16,7 +16,7 @@ Param(
     [parameter(Mandatory=$false)][string][ValidateSet('prod','staging','none','custom', IgnoreCase=$false)]$sslSupport = "none",
     [parameter(Mandatory=$false)][string]$tlsSecretName = "eshop-tls-custom",
     [parameter(Mandatory=$false)][string]$chartsToDeploy="*",
-    [parameter(Mandatory=$false)][string]$ingressMeshAnnotationsFile="ingress_values.yaml"
+    [parameter(Mandatory=$false)][string]$ingressMeshAnnotationsFile="ingress_values_linkerd.yaml"
     )
 
 function Install-Chart  {
