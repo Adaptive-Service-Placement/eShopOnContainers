@@ -31,18 +31,10 @@ spec:
       imagePullSecrets:
       - name: {{ .Values.inf.registry.secretName }}
       {{- end }}
-      volumes:
-      - name: kubeconfig
-        secret:
-          secretName: tiller-token
       containers:
         - name: {{ .Chart.Name }}              
           image: "{{ template "fqdn-image" . }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          volumeMounts:
-          - name: kubeconfig
-            mountPath: /var/run/secrets/kubernetes.io/serviceaccount
-            readOnly: true
           env:
             - name: PATH_BASE
               value: {{ include "pathBase" . }}
