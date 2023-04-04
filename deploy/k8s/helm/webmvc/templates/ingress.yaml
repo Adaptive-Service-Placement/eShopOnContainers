@@ -33,10 +33,9 @@ spec:
       secretName: {{ .secretName }}
   {{- end }}
 {{- end }}
-  rules:
-    defaultBackend:
-      service:
-        name: webmvc
-        port:
-          number: 80
+  defaultBackend:
+    service:
+      name: webmvc
+      port:
+        number: 80
 {{- end }}
