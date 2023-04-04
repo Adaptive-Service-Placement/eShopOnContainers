@@ -33,17 +33,9 @@ spec:
       secretName: {{ .secretName }}
   {{- end }}
 {{- end }}
-  rules:
-    {{- range .Values.ingress.hosts }}
-    - host: {{ . }}
-      http:
-        paths:
-          - path: {{ $ingressPath }}
-            pathType: Prefix
-            backend:
-              service:
-                name: {{ $serviceName }}
-                port:
-                  number: 80
-  {{- end }}
+  defaultBackend:
+    service:
+      name: webmvc
+      port:
+        number: 80
 {{- end }}
