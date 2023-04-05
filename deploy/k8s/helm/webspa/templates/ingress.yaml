@@ -34,9 +34,17 @@ spec:
       secretName: {{ .secretName }}
   {{- end }}
 {{- end }}
-  defaultBackend:
-    service:
-      name: webspa
-      port:
-        number: 80
+  rules:
+  {{- range .Values.ingress.hosts }}
+    - host: {{ . }}
+      http:
+        paths:
+          - path: {{ $ingressPath }}
+            pathType: Prefix            
+            backend:
+              service:
+                name: {{ $serviceName }}
+                port:
+                  number: 80
+  {{- end }}
 {{- end }}
