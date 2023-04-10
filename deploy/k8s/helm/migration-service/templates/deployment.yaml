@@ -42,6 +42,8 @@ spec:
               value: {{ .Values.clusterName }}
             - name: SPRING_RABBITMQ_HOST
               value: rabbitmq
+            - name: NAMESPACE
+              value: default
           ports:
             - name: http
               containerPort: 80
