@@ -14,6 +14,7 @@ public class OrderStatusChangedToPaidIntegrationEventHandler : IIntegrationEvent
 
     public async Task Handle(OrderStatusChangedToPaidIntegrationEvent @event)
     {
+        TimeService.logCurrentTimestamp(_logger);
         var subscriptions = await _retriever.GetSubscriptionsOfType(WebhookType.OrderPaid);
         _logger.LogInformation("Received OrderStatusChangedToShippedIntegrationEvent and got {SubscriptionsCount} subscriptions to process", subscriptions.Count());
         var whook = new WebhookData(WebhookType.OrderPaid, @event);

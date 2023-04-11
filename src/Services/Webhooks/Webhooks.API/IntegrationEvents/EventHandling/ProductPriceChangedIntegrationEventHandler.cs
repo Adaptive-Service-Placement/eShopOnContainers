@@ -4,6 +4,7 @@ public class ProductPriceChangedIntegrationEventHandler : IIntegrationEventHandl
 {
     public async Task Handle(ProductPriceChangedIntegrationEvent @event)
     {
+        TimeService.logCurrentTimestamp(_logger);
         int i = 0;
     }
 }

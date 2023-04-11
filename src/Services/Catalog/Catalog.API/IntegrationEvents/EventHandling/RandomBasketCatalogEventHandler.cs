@@ -13,6 +13,7 @@ public class RandomBasketCatalogEventHandler : IIntegrationEventHandler<RandomBa
 
     public async Task Handle(RandomBasketCatalogEvent @event) 
     {
+        TimeService.logCurrentTimestamp(_logger);
          using (LogContext.PushProperty("IntegrationEventContext", $"{@event.Id}-{Program.AppName}"))
         {
             _logger.LogInformation("----- Handling integration event: {IntegrationEventId} at {AppName} - ({@IntegrationEvent})", @event.Id, Program.AppName, @event);

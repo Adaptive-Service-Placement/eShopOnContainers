@@ -12,6 +12,7 @@ public class RandomBasketWebhookEventHandler : IIntegrationEventHandler<RandomBa
 
     public async Task Handle(RandomBasketWebhookEvent @event) 
     {
+        TimeService.logCurrentTimestamp(_logger);
         _logger.LogInformation("----- Handling integration event: {IntegrationEventId} at Webhook - ({@IntegrationEvent})", @event.Id, @event);
 
             _logger.LogInformation("----- Random Event ID: {id}", @event.EventId);

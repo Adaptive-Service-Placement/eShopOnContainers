@@ -122,7 +122,7 @@ public class EventBusRabbitMQ : IEventBus, IDisposable
                 body: body);
 
             _logger.LogTrace("Forwarding Messaging Information to the Monitoring Service.");
-
+            TimeService.logCurrentTimestamp(_logger);
             // TODO: Send messagingInformation to Monitoring Service
             channel.BasicPublish(
                 exchange: EXTERNAL_BROKER_NAME,

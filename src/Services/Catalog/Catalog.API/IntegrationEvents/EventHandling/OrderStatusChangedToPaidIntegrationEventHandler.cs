@@ -16,6 +16,7 @@ public class OrderStatusChangedToPaidIntegrationEventHandler :
 
     public async Task Handle(OrderStatusChangedToPaidIntegrationEvent @event)
     {
+        TimeService.logCurrentTimestamp(_logger);
         using (LogContext.PushProperty("IntegrationEventContext", $"{@event.Id}-{Program.AppName}"))
         {
             _logger.LogInformation("----- Handling integration event: {IntegrationEventId} at {AppName} - ({@IntegrationEvent})", @event.Id, Program.AppName, @event);

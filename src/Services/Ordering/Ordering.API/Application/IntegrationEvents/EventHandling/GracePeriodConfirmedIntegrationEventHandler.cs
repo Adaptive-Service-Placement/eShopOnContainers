@@ -23,6 +23,7 @@ public class GracePeriodConfirmedIntegrationEventHandler : IIntegrationEventHand
     /// <returns></returns>
     public async Task Handle(GracePeriodConfirmedIntegrationEvent @event)
     {
+        TimeService.logCurrentTimestamp(_logger);
         using (LogContext.PushProperty("IntegrationEventContext", $"{@event.Id}-{Program.AppName}"))
         {
             _logger.LogInformation("----- Handling integration event: {IntegrationEventId} at {AppName} - ({@IntegrationEvent})", @event.Id, Program.AppName, @event);
