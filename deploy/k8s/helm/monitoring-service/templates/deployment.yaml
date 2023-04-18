@@ -48,6 +48,8 @@ spec:
               value: root
             - name: SPRING_RABBITMQ_HOST
               value: rabbitmq
+            - name: MIGRATION_INTERVAL
+              value: 0,5
           ports:
             - name: http
               containerPort: 80
