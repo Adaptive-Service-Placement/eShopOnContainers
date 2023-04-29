@@ -7,7 +7,7 @@ image:
   tag: v1.21.0
 
 service:
-  type: ClusterIP
+  type: NodePort
   port: 80
   adminPort: 8001  
 
