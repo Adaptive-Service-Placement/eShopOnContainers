@@ -19,7 +19,7 @@ spec:
       http:
         paths:
           - path: /management
-            pathType: ImplementationSpecific
+            pathType: Prefix
             backend:
               service:
                 name: rabbitmq
