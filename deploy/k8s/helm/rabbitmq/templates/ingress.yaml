@@ -14,6 +14,7 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
+  ingressClassName: nginx
   rules:
     - host: rabbitmq.example.com
       http:
