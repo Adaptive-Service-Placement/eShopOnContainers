@@ -15,14 +15,16 @@ metadata:
     heritage: {{ .Release.Service }}
 spec:
   rules:
-    - host: rabbitmq.example.com
+    {{- range .Values.ingress.hosts }}
+    - host: {{ . }}
       http:
         paths:
-          - path: /management
+          - path: {{ $ingressPath }}
             pathType: Prefix
             backend:
               service:
                 name: rabbitmq
                 port:
-                  name: management
+                  number: 80
+  {{- end }}
 {{- end }}

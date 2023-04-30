@@ -20,8 +20,6 @@ service:
 ingress:
   enabled: true
   annotations: {}
-  hosts:
-    - rabbitmq.example.com
   tls: []
 
 resources: {}
