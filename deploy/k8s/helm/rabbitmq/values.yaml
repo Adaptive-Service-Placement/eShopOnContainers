@@ -1,5 +1,5 @@
 replicaCount: 1
-clutername: ehop-aks
+clustername: ehop-aks
 pathBase: /rabbit
 
 image:
