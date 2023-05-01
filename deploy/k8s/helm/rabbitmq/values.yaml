@@ -29,3 +29,8 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+env:
+  configmap:
+    - name: management.path_prefix
+    - key: ManagementPathPrefix

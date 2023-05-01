@@ -19,7 +19,7 @@ spec:
     - host: {{ . }}
       http:
         paths:
-          - path: {{ $ingressPath }}
+          - path: /rabbit(/|$)(.*)
             pathType: Prefix
             backend:
               service:
