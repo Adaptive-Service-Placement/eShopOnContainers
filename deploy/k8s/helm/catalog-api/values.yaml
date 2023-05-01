@@ -12,6 +12,11 @@ service:
   port: 80
   grpcPort: 81
 
+ingress:
+  enabled: true
+  annotations: {}
+  tls: []
+
 resources: {}
 
 

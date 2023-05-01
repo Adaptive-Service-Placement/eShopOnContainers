@@ -1,0 +1,31 @@
+{{- if .Values.ingress.enabled -}}
+{{- $ingressPath := include "pathBase" . -}}
+{{- $serviceName := $.Values.app.svc.catalog -}}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ template "catalog-api.fullname" . }}
+  labels:
+    app: {{ template "catalog-api.name" . }}
+    chart: {{ template "catalog-api.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+{{- with .Values.ingress.annotations }}
+  annotations:
+{{ toYaml . | indent 4 }}
+{{- end }}
+spec:
+  rules:
+    {{- range .Values.ingress.hosts }}
+    - host: {{ . }}
+      http:
+        paths:
+          - path: {{ $ingressPath }}
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ $serviceName }}
+                port:
+                  number: 80
+  {{- end }}
+{{- end }}
