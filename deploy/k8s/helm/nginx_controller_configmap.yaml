@@ -1,0 +1,10 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: nginx-configuration
+  namespace: default
+  labels:
+    app: nginx-ingress-ingress-nginx-controller
+data:
+  proxy-buffer-size: "128k"
+  proxy-buffers: "4 256k"
