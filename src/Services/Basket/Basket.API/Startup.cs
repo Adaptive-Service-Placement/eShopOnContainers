@@ -59,7 +59,7 @@ public class Startup
             options.OperationFilter<AuthorizeCheckOperationFilter>();
         });
 
-        ConfigureAuthService(services);
+        //ConfigureAuthService(services);
 
         services.AddCustomHealthCheck(Configuration);
 
