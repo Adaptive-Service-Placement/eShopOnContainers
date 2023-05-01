@@ -1,5 +1,5 @@
 replicaCount: 1
-clustername: ehop-aks
+clustername: eshop-aks
 pathBase: /rabbit
 
 image:
