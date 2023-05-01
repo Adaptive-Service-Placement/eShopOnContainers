@@ -167,7 +167,7 @@ public class Startup
 
         app.UseRouting();
         app.UseCors("CorsPolicy");
-        ConfigureAuth(app);
+        //ConfigureAuth(app);
 
         app.UseStaticFiles();
 
