@@ -201,6 +201,12 @@ public class CatalogController : ControllerBase
     [ProducesResponseType(typeof(List<CatalogBrand>), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<List<CatalogBrand>>> CatalogBrandsAsync()
     {
+        // sends random message to Ordering service
+        var randomCatalogOrderingEvent = new RandomCatalogOrderingEvent("User requested information on all available brands.", createListOfRandomNumbers(), createListOfRandomStrings());
+        
+        await _catalogIntegrationEventService.SaveEventAndCatalogContextChangesAsync(randomCatalogOrderingEvent);
+        await _catalogIntegrationEventService.PublishThroughEventBusAsync(randomCatalogOrderingEvent);
+
         return await _catalogContext.CatalogBrands.ToListAsync();
     }
 
@@ -241,6 +247,12 @@ public class CatalogController : ControllerBase
         {
             await _catalogContext.SaveChangesAsync();
         }
+
+        // sends random message to Webhook service
+        var randomCatalogWebhookEvent = new RandomCatalogWebhookEvent("Updated Product: " + productToUpdate.Name, createListOfRandomNumbers(), createListOfRandomStrings());
+        
+        await _catalogIntegrationEventService.SaveEventAndCatalogContextChangesAsync(randomCatalogWebhookEvent);
+        await _catalogIntegrationEventService.PublishThroughEventBusAsync(randomCatalogWebhookEvent);
 
         return CreatedAtAction(nameof(ItemByIdAsync), new { id = productToUpdate.Id }, null);
     }
