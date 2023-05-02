@@ -89,6 +89,7 @@ public class Startup
         eventBus.Subscribe<OrderStatusChangedToAwaitingValidationIntegrationEvent, OrderStatusChangedToAwaitingValidationIntegrationEventHandler>();
         eventBus.Subscribe<OrderStatusChangedToPaidIntegrationEvent, OrderStatusChangedToPaidIntegrationEventHandler>();
         eventBus.Subscribe<RandomBasketCatalogEvent, RandomBasketCatalogEventHandler>();
+        eventBus.Subscribe<RandomOrderingCatalogEvent, RandomOrderingCatalogEventHandler>();
     }
 }
 
@@ -329,6 +330,7 @@ public static class CustomExtensionMethods
         services.AddTransient<OrderStatusChangedToAwaitingValidationIntegrationEventHandler>();
         services.AddTransient<OrderStatusChangedToPaidIntegrationEventHandler>();
         services.AddTransient<RandomBasketCatalogEventHandler>();
+        services.AddTransient<RandomOrderingCatalogEventHandler>();
 
         return services;
     }
