@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: seq
+  labels:
+    app: {{ template "seq.name" . }}
+    chart: {{ template "seq.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: 5672
+      targetPort: http
+      protocol: TCP
+      name: http
+    - port: 15672
+      targetPort: 15672
+      protocol: TCP
+      name: management
+  selector:
+    app: {{ template "seq.name" . }}
+    release: {{ .Release.Name }}
