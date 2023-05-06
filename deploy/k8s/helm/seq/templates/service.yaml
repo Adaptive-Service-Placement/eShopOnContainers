@@ -10,14 +10,10 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-    - port: 5672
+    - port: {{ .Values.service.port }}
       targetPort: http
       protocol: TCP
       name: http
-    - port: 15672
-      targetPort: 15672
-      protocol: TCP
-      name: management
   selector:
     app: {{ template "seq.name" . }}
     release: {{ .Release.Name }}
