@@ -57,6 +57,9 @@ helm uninstall eshop-rabbitmq
 echo "####### Release eshop-sql-data ######"
 helm uninstall eshop-sql-data
 
+echo "####### Release eshop-seq ######"
+helm uninstall eshop-seq
+
 echo "####### Release eshop-webhooks-api ######"
 helm uninstall eshop-webhooks-api
 
