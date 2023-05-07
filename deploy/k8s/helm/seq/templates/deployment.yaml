@@ -25,7 +25,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
             - name: ACCEPT_EULA
-              value: Y
+              value: "Y"
           ports:
             - name: http
               containerPort: 80
