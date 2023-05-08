@@ -119,7 +119,7 @@ if (-not [string]::IsNullOrEmpty($registry)) {
 
 Write-Host "Begin eShopOnContainers installation using Helm" -ForegroundColor Green
 
-$infras = ("sql-data", "nosql-data", "mysql", "rabbitmq", "keystore-data", "basket-data", "seq")
+$infras = ("sql-data", "nosql-data", "mysql", "rabbitmq", "keystore-data", "basket-data")
 $charts = ("eshop-common", "basket-api","catalog-api", "identity-api", "mobileshoppingagg","ordering-api","ordering-backgroundtasks","ordering-signalrhub", "payment-api", "monitoring-service", "mapping-service", "migration-service", "webmvc", "webshoppingagg", "webspa", "webstatus", "webhooks-api", "webhooks-web")
 $gateways = ("apigwms", "apigwws")
 
