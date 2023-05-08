@@ -1,4 +1,3 @@
-# config.yaml
 ingress:
   annotations:
     kubernetes.io/ingress.class: nginx
@@ -10,14 +9,12 @@ ingress:
 ui:
   ingress:
     enabled: true
-    path: /seq
+    path: /
     hosts:
-      - 34.107.74.108.nip.io
-
-
+      - seq-dev.local
 ingestion:
   ingress:
     enabled: true
-    path: /ingestion
+    path: /
     hosts:
-      - 34.107.74.108.nip.io
+      - seq-dev-ingest.local
