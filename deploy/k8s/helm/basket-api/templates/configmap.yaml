@@ -11,6 +11,7 @@ metadata:
     heritage: {{ .Release.Service }}
 data:
   basket__ConnectionString: {{ .Values.inf.redis.basket.constr }}
+  urls_seqUrl: my-seq.default.svc.cluster.local
   urls__IdentityUrl: http://{{ .Values.app.svc.identity }}
   all__EventBusConnection: {{ .Values.inf.eventbus.constr }}
   all__InstrumentationKey: "{{ .Values.inf.appinsights.key }}"

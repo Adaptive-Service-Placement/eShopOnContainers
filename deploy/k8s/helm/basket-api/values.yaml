@@ -28,6 +28,8 @@ env:
   configmap:
     - name: ConnectionString
       key: basket__ConnectionString
+    - name: SeqServerUrl
+      key: urls_seqUrl
     - name: EventBusConnection
       key: all__EventBusConnection
     - name: ApplicationInsights__InstrumentationKey
