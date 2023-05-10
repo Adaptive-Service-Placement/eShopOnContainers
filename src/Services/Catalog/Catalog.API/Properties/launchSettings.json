@@ -17,7 +17,7 @@
         "Serilog:LogstashgUrl": "http://localhost:8080",
         "ASPNETCORE_ENVIRONMENT": "Development",
         "EventBusConnection": "localhost",
-        "Serilog:SeqServerUrl": "http://localhost:5340"
+        "Serilog:SeqServerUrl": "http://my-seq.default.svc.cluster.local"
       }
     },
     "Microsoft.eShopOnContainers.Services.Catalog.API": {
