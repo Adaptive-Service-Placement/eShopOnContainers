@@ -276,7 +276,7 @@ public class CatalogController : ControllerBase
 
         _catalogContext.CatalogItems.Add(item);
 
-        // await _catalogContext.SaveChangesAsync();
+        await _catalogContext.SaveChangesAsync();
 
         // sends random message to Payment service
         var randomCatalogPaymentEvent = new RandomCatalogPaymentEvent("Created Product: " + product.Name, createListOfRandomNumbers(), createListOfRandomStrings());
@@ -304,7 +304,7 @@ public class CatalogController : ControllerBase
 
         _catalogContext.CatalogItems.Remove(product);
 
-        // await _catalogContext.SaveChangesAsync();
+        await _catalogContext.SaveChangesAsync();
 
         // sends random message to Payment service
         var randomCatalogPaymentEvent = new RandomCatalogPaymentEvent("Deleted Product: " + product.Name, createListOfRandomNumbers(), createListOfRandomStrings());
