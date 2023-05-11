@@ -319,7 +319,7 @@ public class CatalogController : ControllerBase
     [HttpGet]
     [Route("getordering")]
     [ProducesResponseType(typeof(String), (int)HttpStatusCode.OK)]
-    public async Task<IActionResult> getOrdering()
+    public async Task<IActionResult> getOrderingAsync()
     {
         // sends random message to Ordering service
         var randomCatalogOrderingEvent = new RandomCatalogOrderingEvent("Hello Ordering from Catalog", createListOfRandomNumbers(), createListOfRandomStrings());
