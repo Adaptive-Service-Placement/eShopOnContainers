@@ -315,6 +315,7 @@ public class CatalogController : ControllerBase
         return NoContent();
     }
 
+    // GET api/v1/[controller]/ordering
     [HttpGet]
     [Route("ordering")]
     [ProducesResponseType((int)HttpStatusCode.OK)]
