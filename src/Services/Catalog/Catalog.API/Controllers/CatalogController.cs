@@ -318,14 +318,14 @@ public class CatalogController : ControllerBase
     // GET api/v1/[controller]/ordering
     [HttpGet]
     [Route("ordering")]
-    [ProducesResponseType((int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(String), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> sendOrderingMessage()
     {
         // sends random message to Ordering service
         var randomCatalogOrderingEvent = new RandomCatalogOrderingEvent("Hello Ordering from Catalog", createListOfRandomNumbers(), createListOfRandomStrings());
         await _catalogIntegrationEventService.PublishThroughEventBusAsync(randomCatalogOrderingEvent);
 
-        return Ok();
+        return Ok("Message sent!");
     }
 
     private List<CatalogItem> ChangeUriPlaceholder(List<CatalogItem> items)
