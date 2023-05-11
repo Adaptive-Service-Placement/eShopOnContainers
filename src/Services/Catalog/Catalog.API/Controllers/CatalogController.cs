@@ -230,7 +230,7 @@ public class CatalogController : ControllerBase
 
         // Update current product
         catalogItem = productToUpdate;
-        _catalogContext.CatalogItems.Update(catalogItem);
+        await _catalogContext.CatalogItems.Update(catalogItem);
 
         if (raiseProductPriceChangedEvent) // Save product's data and publish integration event through the Event Bus if price has changed
         {
@@ -274,9 +274,9 @@ public class CatalogController : ControllerBase
             Price = product.Price
         };
 
-        _catalogContext.CatalogItems.Add(item);
+        await _catalogContext.CatalogItems.Add(item);
 
-        await _catalogContext.SaveChangesAsync();
+        // await _catalogContext.SaveChangesAsync();
 
         // sends random message to Payment service
         var randomCatalogPaymentEvent = new RandomCatalogPaymentEvent("Created Product: " + product.Name, createListOfRandomNumbers(), createListOfRandomStrings());
@@ -302,9 +302,9 @@ public class CatalogController : ControllerBase
             return NotFound();
         }
 
-        _catalogContext.CatalogItems.Remove(product);
+        await _catalogContext.CatalogItems.Remove(product);
 
-        await _catalogContext.SaveChangesAsync();
+        // await _catalogContext.SaveChangesAsync();
 
         // sends random message to Payment service
         var randomCatalogPaymentEvent = new RandomCatalogPaymentEvent("Deleted Product: " + product.Name, createListOfRandomNumbers(), createListOfRandomStrings());
