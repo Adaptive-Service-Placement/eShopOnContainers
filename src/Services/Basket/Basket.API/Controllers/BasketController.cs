@@ -125,6 +125,27 @@ public class BasketController : ControllerBase
         await _repository.DeleteBasketAsync(id);
     }
 
+    // Endpoint to trigger message to Catalog Service
+    [HttpGet]
+    [Route("catalog")]
+    [ProducesResponseType((int)HttpStatusCode.OK)]
+    public IActionResult sendMessageToCatalogService()
+    {
+        var randomBasketCatalogEvent = new RandomBasketCatalogEvent("Hello Catalog from Basket", createListOfRandomNumbers(), createListOfRandomStrings());
+
+        try
+        {
+            _eventBus.Publish(randomBasketCatalogEvent);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "ERROR Publishing integration event: {IntegrationEventId} from {AppName}", randomBasketCatalogEvent.Id, Program.AppName);
+
+            throw;
+        }
+        return Ok();
+    }
+
     private List<int> createListOfRandomNumbers() 
     {
         Random rand = new Random();
