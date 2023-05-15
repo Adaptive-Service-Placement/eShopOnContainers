@@ -316,17 +316,16 @@ public class CatalogController : ControllerBase
     }
 
     // GET api/v1/[controller]/ordering
-    [Route("getordering")]
     [HttpGet]
-    [ProducesResponseType(typeof(List<CatalogType>), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<List<CatalogType>>> getOrderingAsync()
+    [Route("getordering")]
+    [ProducesResponseType(typeof(String), (int)HttpStatusCode.OK)]
+    public async Task<IActionResult> getOrderingAsync()
     {
         // sends random message to Ordering service
-        //var randomCatalogOrderingEvent = new RandomCatalogOrderingEvent("Hello Ordering from Catalog", createListOfRandomNumbers(), createListOfRandomStrings());
-        //await _catalogIntegrationEventService.PublishThroughEventBusAsync(randomCatalogOrderingEvent);
+        var randomCatalogOrderingEvent = new RandomCatalogOrderingEvent("Hello Ordering from Catalog", createListOfRandomNumbers(), createListOfRandomStrings());
+        await _catalogIntegrationEventService.PublishThroughEventBusAsync(randomCatalogOrderingEvent);
 
-        //return Ok("Message sent!");
-        return await _catalogContext.CatalogTypes.ToListAsync();
+        return Ok("Message sent!");
     }
 
     private List<CatalogItem> ChangeUriPlaceholder(List<CatalogItem> items)
