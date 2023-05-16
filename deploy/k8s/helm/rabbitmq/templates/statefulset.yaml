@@ -7,7 +7,7 @@ spec:
   serviceName: rabbitmq
   selector:
     matchLabels:
-      app: rabbitmq
+      app: {{ template "rabbitmq.name" . }}
       release: {{ .Release.Name }}
   template:
     metadata:
