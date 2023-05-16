@@ -31,6 +31,3 @@ spec:
             - name: management
               containerPort: 15672
               protocol: TCP
-          volumeMounts:
-            - name: rabbitmq-data
-              mountPath: /var/lib/rabbitmq
