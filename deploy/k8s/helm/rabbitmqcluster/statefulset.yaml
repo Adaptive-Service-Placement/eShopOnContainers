@@ -4,6 +4,7 @@ metadata:
   name: rabbitmq
   namespace: test-rabbitmq
 spec:
+  replicas: 3
   selector:
     matchLabels:
       app: "rabbitmq"
