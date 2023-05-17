@@ -62,7 +62,7 @@ spec:
         - name: rabbitmq-data
           persistentVolumeClaim:
             claimName: rabbitmq-data
-      serviceAccount: rabbitmq
+      serviceAccountName: rabbitmq
       # The Docker image runs as the `rabbitmq` user with uid 999
       # and writes to the `rabbitmq.conf` file
       # The security context is needed since the image needs
