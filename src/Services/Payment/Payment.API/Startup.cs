@@ -174,7 +174,7 @@ public static class CustomExtensionMethods
         {
             hcBuilder
                 .AddRabbitMQ(
-                    $"amqp://{configuration["EventBusConnection"]}",
+                    $"amqp://{configuration["EventBusUserName"]}:{configuration["EventBusPassword"]}@{configuration["EventBusConnection"]}",
                     name: "payment-rabbitmqbus-check",
                     tags: new string[] { "rabbitmqbus" });
         }
