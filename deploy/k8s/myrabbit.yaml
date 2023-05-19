@@ -3,7 +3,7 @@ kind: RabbitmqCluster
 metadata:
   name: resource-limits
 spec:
-  replicas: 1
+  replicas: 3
   resources:
     requests:
       cpu: 400m
