@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: {{ template "rabbitmq.fullname" . }}
   labels:
@@ -9,7 +9,6 @@ metadata:
     heritage: {{ .Release.Service }}
 spec:
   replicas: {{ .Values.replicaCount }}
-  serviceName: rabbitmq
   selector:
     matchLabels:
       app: {{ template "rabbitmq.name" . }}
@@ -28,6 +27,17 @@ spec:
             - name: http
               containerPort: 5672
               protocol: TCP
-            - name: management
-              containerPort: 15672
-              protocol: TCP
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+    {{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+    {{- end }}
