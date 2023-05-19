@@ -52,6 +52,7 @@ public class DefaultRabbitMQPersistentConnection
     public bool TryConnect()
     {
         _logger.LogInformation("RabbitMQ Client is trying to connect");
+        _logger.LogInformation("This is the User that's trying to connect: {user}", _connectionFactory.UserName);
 
         lock (_syncRoot)
         {
