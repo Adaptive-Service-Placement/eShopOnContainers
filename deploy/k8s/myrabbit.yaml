@@ -1,9 +1,16 @@
 apiVersion: rabbitmq.com/v1beta1
 kind: RabbitmqCluster
 metadata:
-  name: resource-limits
+  name: rabbitmq
 spec:
   replicas: 3
+  selector:
+    matchLabels:
+      app: rabbitmq
+  template:
+    metadata:
+      labels:
+        app: rabbitmq
   resources:
     requests:
       cpu: 50m
