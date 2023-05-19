@@ -4,13 +4,6 @@ metadata:
   name: rabbitmq
 spec:
   replicas: 3
-  selector:
-    matchLabels:
-      app: rabbitmq
-  template:
-    metadata:
-      labels:
-        app: rabbitmq
   resources:
     requests:
       cpu: 50m
