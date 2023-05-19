@@ -18,7 +18,7 @@ Param(
     [parameter(Mandatory=$false)][string]$chartsToDeploy="*",
     [parameter(Mandatory=$false)][string]$ingressMeshAnnotationsFile="ingress_values_linkerd.yaml"
     [parameter(Mandatory=$false)][string]$eventbusUser=""
-    [parameter(Mandatory=$false)][string]$eventbusPasswort=""
+    [parameter(Mandatory=$false)][string]$eventbusPassword=""
     )
 
 function Install-Chart  {
@@ -139,7 +139,7 @@ if ($deployCharts) {
     foreach ($chart in $charts) {
         if ($chartsToDeploy -eq "*" -or $chartsToDeploy.Contains($chart)) {
             Write-Host "Installing: $chart" -ForegroundColor Green
-            Install-Chart $chart "--values app.yaml --values inf.yaml --values $ingressValuesFile --values $ingressMeshAnnotationsFile --set app.name=$appName --set inf.k8s.dns=$dns --set ingress.hosts=``{$dns``} --set image.tag=$imageTag --set image.pullPolicy=$imagePullPolicy --set inf.tls.enabled=$sslEnabled --set inf.mesh.enabled=$useMesh --set inf.k8s.local=$useLocalk8s --set inf.eventbus.user=$eventbusUser --set inf.eventbus.password=$eventbusPasswort" $useCustomRegistry --set controller.publishService.enabled=true
+            Install-Chart $chart "--values app.yaml --values inf.yaml --values $ingressValuesFile --values $ingressMeshAnnotationsFile --set app.name=$appName --set inf.k8s.dns=$dns --set ingress.hosts=``{$dns``} --set image.tag=$imageTag --set image.pullPolicy=$imagePullPolicy --set inf.tls.enabled=$sslEnabled --set inf.mesh.enabled=$useMesh --set inf.k8s.local=$useLocalk8s --set inf.eventbus.user=$eventbusUser --set inf.eventbus.password=$eventbusPassword" $useCustomRegistry --set controller.publishService.enabled=true
         }
     }
 
