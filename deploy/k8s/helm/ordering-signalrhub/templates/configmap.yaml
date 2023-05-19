@@ -16,3 +16,5 @@ data:
   all__UseAzureServiceBus: "{{ .Values.inf.eventbus.useAzure }}"
   signalr__StoreConnectionString: {{ .Values.inf.redis.keystore.constr }}
   urls__IdentityUrl: http://identity-api
+  all_EventBusUserName: "{{ .Values.inf.eventbus.user }}"
+  all_EventBusPassword: "{{ .Values.inf.eventbus.password }}"

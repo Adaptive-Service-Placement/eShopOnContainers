@@ -40,6 +40,8 @@ inf:
     svc: rabbitmq           # Name of k8s svc for rabbitmq
     constr: rabbitmq        # Event bus connection string
     useAzure: false         # true if use Azure Service Bus. False if RabbitMQ
+    user: ""
+    password: ""
   appinsights:
       key: ""               # App insights to use
   k8s:                      # inf.k8s defines Kubernetes cluster global config

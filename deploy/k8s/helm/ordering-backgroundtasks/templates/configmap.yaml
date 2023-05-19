@@ -19,3 +19,5 @@ data:
   all__UseAzureServiceBus: "{{ .Values.inf.eventbus.useAzure }}"
   graceperiodmanager__CheckUpdateTime: "{{ .Values.cfg.checkUpdateTime }}"
   graceperiodmanager__GracePeriodTime: "{{ .Values.cfg.gracePeriodTime }}"
+  all_EventBusUserName: "{{ .Values.inf.eventbus.user }}"
+  all_EventBusPassword: "{{ .Values.inf.eventbus.password }}"

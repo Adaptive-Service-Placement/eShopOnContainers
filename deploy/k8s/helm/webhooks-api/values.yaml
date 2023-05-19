@@ -44,6 +44,10 @@ env:
       key: urls__IdentityUrl
     - name: IdentityUrlExternal
       key: urls__IdentityUrlExternal
+    - name: EventBusUserName
+      key: all_EventBusUserName
+    - name: EventBusPassword
+      key: all_EventBusPassword
       # values define environment variables with a fixed value (no configmap involved) (name is name of var, and value is its value)
   values:
     - name: ASPNETCORE_ENVIRONMENT
