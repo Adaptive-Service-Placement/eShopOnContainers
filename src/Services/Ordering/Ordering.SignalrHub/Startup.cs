@@ -233,7 +233,7 @@ public static class CustomExtensionMethods
 
         hcBuilder.AddCheck("self", () => HealthCheckResult.Healthy());
 
-        if (configuration.GetValue<bool>("AzureServiceBusEnabled"))
+        /*if (configuration.GetValue<bool>("AzureServiceBusEnabled"))
         {
             hcBuilder
                 .AddAzureServiceBusTopic(
@@ -250,7 +250,7 @@ public static class CustomExtensionMethods
                     name: "signalr-rabbitmqbus-check",
                     tags: new string[] { "rabbitmqbus" });
         }
-
+*/
         return services;
     }
 }

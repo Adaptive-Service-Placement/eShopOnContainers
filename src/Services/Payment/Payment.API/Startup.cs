@@ -161,7 +161,7 @@ public static class CustomExtensionMethods
 
         hcBuilder.AddCheck("self", () => HealthCheckResult.Healthy());
 
-        if (configuration.GetValue<bool>("AzureServiceBusEnabled"))
+        /*if (configuration.GetValue<bool>("AzureServiceBusEnabled"))
         {
             hcBuilder
                 .AddAzureServiceBusTopic(
@@ -177,7 +177,7 @@ public static class CustomExtensionMethods
                     $"amqp://{configuration["EventBusUserName"]}:{configuration["EventBusPassword"]}@{configuration["EventBusConnection"]}",
                     name: "payment-rabbitmqbus-check",
                     tags: new string[] { "rabbitmqbus" });
-        }
+        }*/
 
         return services;
     }

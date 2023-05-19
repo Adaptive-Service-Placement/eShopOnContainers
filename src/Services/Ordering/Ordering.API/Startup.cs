@@ -166,7 +166,7 @@ static class CustomExtensionsMethods
                 name: "OrderingDB-check",
                 tags: new string[] { "orderingdb" });
 
-        if (configuration.GetValue<bool>("AzureServiceBusEnabled"))
+        /*if (configuration.GetValue<bool>("AzureServiceBusEnabled"))
         {
             hcBuilder
                 .AddAzureServiceBusTopic(
@@ -182,7 +182,7 @@ static class CustomExtensionsMethods
                     $"amqp://{configuration["EventBusUserName"]}:{configuration["EventBusPassword"]}@{configuration["EventBusConnection"]}",
                     name: "ordering-rabbitmqbus-check",
                     tags: new string[] { "rabbitmqbus" });
-        }
+        }*/
 
         return services;
     }

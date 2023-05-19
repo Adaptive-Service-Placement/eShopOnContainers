@@ -14,7 +14,7 @@ public static class CustomExtensionMethods
                 name: "redis-check",
                 tags: new string[] { "redis" });
 
-        if (configuration.GetValue<bool>("AzureServiceBusEnabled"))
+        /*if (configuration.GetValue<bool>("AzureServiceBusEnabled"))
         {
             hcBuilder
                 .AddAzureServiceBusTopic(
@@ -30,7 +30,7 @@ public static class CustomExtensionMethods
                     $"amqp://{configuration["EventBusUserName"]}:{configuration["EventBusPassword"]}@{configuration["EventBusConnection"]}",
                     name: "basket-rabbitmqbus-check",
                     tags: new string[] { "rabbitmqbus" });
-        }
+        }*/
 
         return services;
     }

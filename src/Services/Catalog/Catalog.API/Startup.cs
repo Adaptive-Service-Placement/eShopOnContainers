@@ -147,7 +147,7 @@ public static class CustomExtensionMethods
                     tags: new string[] { "catalogstorage" });
         }
 
-        if (configuration.GetValue<bool>("AzureServiceBusEnabled"))
+        /*if (configuration.GetValue<bool>("AzureServiceBusEnabled"))
         {
             hcBuilder
                 .AddAzureServiceBusTopic(
@@ -164,7 +164,7 @@ public static class CustomExtensionMethods
                     name: "catalog-rabbitmqbus-check",
                     tags: new string[] { "rabbitmqbus" });
         }
-
+*/
         return services;
     }
 
