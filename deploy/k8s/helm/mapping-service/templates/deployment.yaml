@@ -41,6 +41,10 @@ spec:
               value: {{ .Values.clusterName }}
             - name: SPRING_RABBITMQ_HOST
               value: rabbitmq
+            - name: SPRING_RABBITMQ_USERNAME
+              value: {{ .Values.inf.eventbus.user }}
+            - name: SPRING_RABBITMQ_PASSWORD
+              value: {{ .Values.inf.eventbus.password }}
           ports:
             - name: http
               containerPort: 80
