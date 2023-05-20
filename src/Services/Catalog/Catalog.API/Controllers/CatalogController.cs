@@ -230,7 +230,7 @@ public class CatalogController : ControllerBase
 
         // Update current product
         catalogItem = productToUpdate;
-        await _catalogContext.CatalogItems.Update(catalogItem);
+        _catalogContext.CatalogItems.Update(catalogItem);
 
         if (raiseProductPriceChangedEvent) // Save product's data and publish integration event through the Event Bus if price has changed
         {
@@ -274,7 +274,7 @@ public class CatalogController : ControllerBase
             Price = product.Price
         };
 
-        await _catalogContext.CatalogItems.Add(item);
+        _catalogContext.CatalogItems.Add(item);
 
         // await _catalogContext.SaveChangesAsync();
 
@@ -302,7 +302,7 @@ public class CatalogController : ControllerBase
             return NotFound();
         }
 
-        await _catalogContext.CatalogItems.Remove(product);
+        _catalogContext.CatalogItems.Remove(product);
 
         // await _catalogContext.SaveChangesAsync();
 
