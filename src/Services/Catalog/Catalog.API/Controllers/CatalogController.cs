@@ -315,19 +315,6 @@ public class CatalogController : ControllerBase
         return NoContent();
     }
 
-    // GET api/v1/[controller]/ordering
-    [HttpGet]
-    [Route("getordering")]
-    [ProducesResponseType(typeof(String), (int)HttpStatusCode.OK)]
-    public async Task<IActionResult> getOrderingAsync()
-    {
-        // sends random message to Ordering service
-        var randomCatalogOrderingEvent = new RandomCatalogOrderingEvent("Hello Ordering from Catalog", createListOfRandomNumbers(), createListOfRandomStrings());
-        await _catalogIntegrationEventService.PublishThroughEventBusAsync(randomCatalogOrderingEvent);
-
-        return Ok("Message sent!");
-    }
-
     private List<CatalogItem> ChangeUriPlaceholder(List<CatalogItem> items)
     {
         var baseUri = _settings.PicBaseUrl;
