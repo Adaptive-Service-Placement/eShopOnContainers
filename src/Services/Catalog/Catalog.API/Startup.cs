@@ -18,7 +18,8 @@ public class Startup
             .AddCustomOptions(Configuration)
             .AddIntegrationServices(Configuration)
             .AddEventBus(Configuration)
-            .AddSwagger(Configuration);
+            .AddSwagger(Configuration)
+            .AddCustomHealthCheck(Configuration);
 
         var container = new ContainerBuilder();
         container.Populate(services);
@@ -120,6 +121,50 @@ public static class CustomExtensionMethods
                 .AllowCredentials());
         });
 
+        return services;
+    }
+
+    public static IServiceCollection AddCustomHealthCheck(this IServiceCollection services, IConfiguration configuration)
+    {
+        var accountName = configuration.GetValue<string>("AzureStorageAccountName");
+        var accountKey = configuration.GetValue<string>("AzureStorageAccountKey");
+
+        var hcBuilder = services.AddHealthChecks();
+
+        hcBuilder
+            .AddCheck("self", () => HealthCheckResult.Healthy())
+            .AddSqlServer(
+                configuration["ConnectionString"],
+                name: "CatalogDB-check",
+                tags: new string[] { "catalogdb" });
+
+        if (!string.IsNullOrEmpty(accountName) && !string.IsNullOrEmpty(accountKey))
+        {
+            hcBuilder
+                .AddAzureBlobStorage(
+                    $"DefaultEndpointsProtocol=https;AccountName={accountName};AccountKey={accountKey};EndpointSuffix=core.windows.net",
+                    name: "catalog-storage-check",
+                    tags: new string[] { "catalogstorage" });
+        }
+
+        /*if (configuration.GetValue<bool>("AzureServiceBusEnabled"))
+        {
+            hcBuilder
+                .AddAzureServiceBusTopic(
+                    configuration["EventBusConnection"],
+                    topicName: "eshop_event_bus",
+                    name: "catalog-servicebus-check",
+                    tags: new string[] { "servicebus" });
+        }
+        else
+        {
+            hcBuilder
+                .AddRabbitMQ(
+                    $"amqp://{configuration["EventBusUserName"]}:{configuration["EventBusPassword"]}@{configuration["EventBusConnection"]}",
+                    name: "catalog-rabbitmqbus-check",
+                    tags: new string[] { "rabbitmqbus" });
+        }
+*/
         return services;
     }
 
