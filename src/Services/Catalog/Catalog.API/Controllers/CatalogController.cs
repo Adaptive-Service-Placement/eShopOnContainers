@@ -322,6 +322,8 @@ public class CatalogController : ControllerBase
     {
         // sends random message to Ordering service
         var randomCatalogOrderingEvent = new RandomCatalogOrderingEvent("Hello Ordering from Catalog", createListOfRandomNumbers(), createListOfRandomStrings());
+        
+        await _catalogIntegrationEventService.SaveEventAndCatalogContextChangesAsync(randomCatalogOrderingEvent);
         await _catalogIntegrationEventService.PublishThroughEventBusAsync(randomCatalogOrderingEvent);
 
         return Ok();
