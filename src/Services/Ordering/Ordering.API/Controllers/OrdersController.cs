@@ -184,6 +184,32 @@ public class OrdersController : ControllerBase
         return Ok();
     }
 
+    [HttpGet]
+    [Route("signal")]
+    [ProducesResponseType((int)HttpStatusCode.OK)]
+    public async Task<IActionResult> sendSignalMessage()
+    {
+        // sends random message to Payment service
+        var randomOrderingSignalEvent = new RandomOrderingSignalEvent("Hello Signal from Ordering", createListOfRandomNumbers(), createListOfRandomStrings());
+        
+        _eventBus.Publish(randomOrderingSignalEvent);
+
+        return Ok();
+    }
+
+    [HttpGet]
+    [Route("background")]
+    [ProducesResponseType((int)HttpStatusCode.OK)]
+    public async Task<IActionResult> sendBackgroundMessage()
+    {
+        // sends random message to Payment service
+        var randomOrderingBackgroundEvent = new RandomOrderingBackgroundEvent("Hello Background from Ordering", createListOfRandomNumbers(), createListOfRandomStrings());
+        
+        _eventBus.Publish(randomOrderingBackgroundEvent);
+
+        return Ok();
+    }
+
     private List<int> createListOfRandomNumbers() 
     {
         Random rand = new Random();
