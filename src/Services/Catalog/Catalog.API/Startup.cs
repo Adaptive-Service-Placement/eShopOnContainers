@@ -91,6 +91,7 @@ public class Startup
         eventBus.Subscribe<RandomBasketCatalogEvent, RandomBasketCatalogEventHandler>();
         eventBus.Subscribe<RandomOrderingCatalogEvent, RandomOrderingCatalogEventHandler>();
         eventBus.Subscribe<RandomSignalCatalogEvent, RandomSignalCatalogEventHandler>();
+        eventBus.Subscribe<RandomWebhookCatalogEvent, RandomWebhookCatalogEventHandler>();
     }
 }
 
@@ -333,6 +334,7 @@ public static class CustomExtensionMethods
         services.AddTransient<RandomBasketCatalogEventHandler>();
         services.AddTransient<RandomOrderingCatalogEventHandler>();
         services.AddTransient<RandomSignalCatalogEventHandler>();
+        services.AddTransient<RandomWebhookCatalogEventHandler>();
 
         return services;
     }
