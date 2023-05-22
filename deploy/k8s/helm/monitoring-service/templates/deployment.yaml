@@ -53,7 +53,7 @@ spec:
             - name: SPRING_RABBITMQ_PASSWORD
               value: {{ .Values.inf.eventbus.password }}
             - name: MIGRATION_INTERVAL
-              value: "5"
+              value: "60"
           ports:
             - name: http
               containerPort: 80
