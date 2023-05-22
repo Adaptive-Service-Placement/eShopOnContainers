@@ -8,6 +8,8 @@
     using Microsoft.Extensions.Logging;
     using Ordering.BackgroundTasks.Extensions;
     using Ordering.BackgroundTasks.Services;
+    using Ordering.BackgroundTasks.Events;
+    using Ordering.BackgroundTasks.EventHandling;
 
     public class Startup
     {
@@ -43,6 +45,17 @@
                     Predicate = r => r.Name.Contains("self")
                 });
             });
+
+            ConfigureEventBus(app);
+        }
+
+        private void ConfigureEventBus(IApplicationBuilder app)
+        {
+            var eventBus = app.ApplicationServices.GetRequiredService<Microsoft.eShopOnContainers.BuildingBlocks.EventBus.Abstractions.IEventBus>();
+
+            eventBus.Subscribe<RandomCatalogBackgroundEvent, RandomCatalogBackgroundEventHandler>();
+            eventBus.Subscribe<RandomOrderingBackgroundEvent, RandomOrderingBackgroundEventHandler>();
+            eventBus.Subscribe<RandomWebhookBackgroundEvent, RandomWebhookBackgroundEventHandler>();
         }
     }
 }
