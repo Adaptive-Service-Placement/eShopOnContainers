@@ -141,6 +141,7 @@ public class Startup
         services.AddTransient<RandomBasketPaymentEventHandler>();
         services.AddTransient<RandomOrderingPaymentEventHandler>();
         services.AddTransient<RandomSignalPaymentEventHandler>();
+        services.AddTransient<RandomWebhookPaymentEventHandler>();
         services.AddSingleton<IEventBusSubscriptionsManager, InMemoryEventBusSubscriptionsManager>();
     }
     // !! MODIFY HERE TO IMPLEMENT COMMUNICATION WITH OTHER SERVICES !!
@@ -152,6 +153,7 @@ public class Startup
         eventBus.Subscribe<RandomBasketPaymentEvent, RandomBasketPaymentEventHandler>();
         eventBus.Subscribe<RandomOrderingPaymentEvent, RandomOrderingPaymentEventHandler>();
         eventBus.Subscribe<RandomSignalPaymentEvent, RandomSignalPaymentEventHandler>();
+        eventBus.Subscribe<RandomWebhookPaymentEvent, RandomWebhookPaymentEventHandler>();
     }
 }
 
