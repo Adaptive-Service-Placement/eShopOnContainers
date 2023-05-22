@@ -144,4 +144,78 @@ public class OrdersController : ControllerBase
 
         return await _mediator.Send(createOrderDraftCommand);
     }
+
+    [HttpGet]
+    [Route("payment")]
+    [ProducesResponseType((int)HttpStatusCode.OK)]
+    public async Task<IActionResult> sendPaymentMessage()
+    {
+        // sends random message to Payment service
+        var randomOrderingPaymentEvent = new RandomOrderingPaymentEvent("Hello Payment from Ordering", createListOfRandomNumbers(), createListOfRandomStrings());
+        
+        _eventBus.Publish(randomOrderingPaymentEvent);
+
+        return Ok();
+    }
+
+    [HttpGet]
+    [Route("catalog")]
+    [ProducesResponseType((int)HttpStatusCode.OK)]
+    public async Task<IActionResult> sendCatalogMessage()
+    {
+        // sends random message to Payment service
+        var randomOrderingCatalogEvent = new RandomOrderingCatalogEvent("Hello Catalog from Ordering", createListOfRandomNumbers(), createListOfRandomStrings());
+        
+        _eventBus.Publish(randomOrderingCatalogEvent);
+
+        return Ok();
+    }
+
+    [HttpGet]
+    [Route("webhook")]
+    [ProducesResponseType((int)HttpStatusCode.OK)]
+    public async Task<IActionResult> sendWebhookMessage()
+    {
+        // sends random message to Payment service
+        var randomOrderingWebhookEvent = new RandomOrderingWebhookEvent("Hello Webhook from Ordering", createListOfRandomNumbers(), createListOfRandomStrings());
+        
+        _eventBus.Publish(randomOrderingWebhookEvent);
+
+        return Ok();
+    }
+
+    private List<int> createListOfRandomNumbers() 
+    {
+        Random rand = new Random();
+        List<int> listOfRandomNumbers = new List<int>();
+
+        // minimum size of 10 entries, maximum size of 20 entries
+        int sizeOfList = rand.Next(20, 30+1);
+
+        for (int i = 0; i < sizeOfList; i++)
+        {
+            listOfRandomNumbers.Add(rand.Next());
+        }
+
+        return listOfRandomNumbers;
+    }
+
+    private List<String> createListOfRandomStrings() 
+    {
+        Random rand = new Random();
+        List<String> listOfRandomStrings = new List<String>();
+
+        // minimum size of 10 entries, maximum size of 20 entries
+        int sizeOfList = rand.Next(10, 20+1);
+
+        const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+        for (int i = 0; i < sizeOfList; i++)
+        {
+            // creates a random String with a maximum size of 30
+            listOfRandomStrings.Add(new string(Enumerable.Repeat(chars, 20).Select(s => s[rand.Next(s.Length)]).ToArray()));
+        }
+
+        return listOfRandomStrings;
+    }
 }
