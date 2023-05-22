@@ -111,6 +111,7 @@ public class Startup
         eventBus.Subscribe<OrderPaymentFailedIntegrationEvent, IIntegrationEventHandler<OrderPaymentFailedIntegrationEvent>>();
         eventBus.Subscribe<OrderPaymentSucceededIntegrationEvent, IIntegrationEventHandler<OrderPaymentSucceededIntegrationEvent>>();
         eventBus.Subscribe<RandomCatalogOrderingEvent, IIntegrationEventHandler<RandomCatalogOrderingEvent>>();
+        eventBus.Subscribe<RandomSignalOrderingEvent, IIntegrationEventHandler<RandomSignalOrderingEvent>>();
     }
 
     protected virtual void ConfigureAuth(IApplicationBuilder app)
