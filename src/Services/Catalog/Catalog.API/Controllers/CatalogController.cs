@@ -328,6 +328,62 @@ public class CatalogController : ControllerBase
 
         return Ok();
     }
+    
+    [HttpGet]
+    [Route("payment")]
+    [ProducesResponseType((int)HttpStatusCode.OK)]
+    public async Task<IActionResult> sendPaymentMessage()
+    {
+        // sends random message to Payment service
+        var randomCatalogPaymentEvent = new RandomCatalogPaymentEvent("Hello Payment from Catalog", createListOfRandomNumbers(), createListOfRandomStrings());
+        
+        await _catalogIntegrationEventService.SaveEventAndCatalogContextChangesAsync(randomCatalogPaymentEvent);
+        await _catalogIntegrationEventService.PublishThroughEventBusAsync(randomCatalogPaymentEvent);
+
+        return Ok();
+    }
+
+    [HttpGet]
+    [Route("webhook")]
+    [ProducesResponseType((int)HttpStatusCode.OK)]
+    public async Task<IActionResult> sendWebhookMessage()
+    {
+        // sends random message to Webhook service
+        var randomCatalogWebhookEvent = new RandomCatalogWebhookEvent("Hello Webhook from Catalog", createListOfRandomNumbers(), createListOfRandomStrings());
+        
+        await _catalogIntegrationEventService.SaveEventAndCatalogContextChangesAsync(randomCatalogWebhookEvent);
+        await _catalogIntegrationEventService.PublishThroughEventBusAsync(randomCatalogWebhookEvent);
+
+        return Ok();
+    }
+
+    [HttpGet]
+    [Route("signal")]
+    [ProducesResponseType((int)HttpStatusCode.OK)]
+    public async Task<IActionResult> sendSignalMessage()
+    {
+        // sends random message to Webhook service
+        var randomCatalogSignalEvent = new RandomCatalogSignalEvent("Hello Signal from Catalog", createListOfRandomNumbers(), createListOfRandomStrings());
+        
+        await _catalogIntegrationEventService.SaveEventAndCatalogContextChangesAsync(randomCatalogSignalEvent);
+        await _catalogIntegrationEventService.PublishThroughEventBusAsync(randomCatalogSignalEvent);
+
+        return Ok();
+    }
+
+    [HttpGet]
+    [Route("background")]
+    [ProducesResponseType((int)HttpStatusCode.OK)]
+    public async Task<IActionResult> sendBackgroundMessage()
+    {
+        // sends random message to Webhook service
+        var randomCatalogBackgroundEvent = new RandomCatalogBackgroundEvent("Hello Background from Catalog", createListOfRandomNumbers(), createListOfRandomStrings());
+        
+        await _catalogIntegrationEventService.SaveEventAndCatalogContextChangesAsync(randomCatalogBackgroundEvent);
+        await _catalogIntegrationEventService.PublishThroughEventBusAsync(randomCatalogBackgroundEvent);
+
+        return Ok();
+    }
 
     private List<CatalogItem> ChangeUriPlaceholder(List<CatalogItem> items)
     {
