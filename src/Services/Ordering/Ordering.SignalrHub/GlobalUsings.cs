@@ -26,6 +26,7 @@ global using Microsoft.eShopOnContainers.Services.Ordering.SignalrHub;
 global using RabbitMQ.Client;
 global using Serilog.Context;
 global using Serilog;
+global using System.Collections.Generic;
 global using System.IdentityModel.Tokens.Jwt;
 global using System.IO;
 global using System.Reflection;
