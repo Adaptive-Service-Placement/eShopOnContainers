@@ -146,6 +146,7 @@ public class Startup
         eventBus.Subscribe<OrderStatusChangedToCancelledIntegrationEvent, OrderStatusChangedToCancelledIntegrationEventHandler>();
         eventBus.Subscribe<OrderStatusChangedToSubmittedIntegrationEvent, OrderStatusChangedToSubmittedIntegrationEventHandler>();
         eventBus.Subscribe<RandomCatalogSignalEvent, RandomCatalogSignalEventHandler>();
+        eventBus.Subscribe<RandomWebhookSignalEvent, RandomWebhookSignalEventHandler>();
     }
 
     private void ConfigureAuthService(IServiceCollection services)
