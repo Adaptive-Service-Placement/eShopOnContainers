@@ -90,6 +90,7 @@ public class Startup
         eventBus.Subscribe<OrderStatusChangedToPaidIntegrationEvent, OrderStatusChangedToPaidIntegrationEventHandler>();
         eventBus.Subscribe<RandomBasketCatalogEvent, RandomBasketCatalogEventHandler>();
         eventBus.Subscribe<RandomOrderingCatalogEvent, RandomOrderingCatalogEventHandler>();
+        eventBus.Subscribe<RandomSignalCatalogEvent, RandomSignalCatalogEventHandler>();
     }
 }
 
@@ -331,6 +332,7 @@ public static class CustomExtensionMethods
         services.AddTransient<OrderStatusChangedToPaidIntegrationEventHandler>();
         services.AddTransient<RandomBasketCatalogEventHandler>();
         services.AddTransient<RandomOrderingCatalogEventHandler>();
+        services.AddTransient<RandomSignalCatalogEventHandler>();
 
         return services;
     }
