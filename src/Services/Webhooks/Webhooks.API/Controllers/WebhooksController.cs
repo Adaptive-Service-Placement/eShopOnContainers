@@ -7,12 +7,14 @@ public class WebhooksController : ControllerBase
     private readonly WebhooksContext _dbContext;
     private readonly IIdentityService _identityService;
     private readonly IGrantUrlTesterService _grantUrlTester;
+    private readonly IEventBus _eventBus;
 
-    public WebhooksController(WebhooksContext dbContext, IIdentityService identityService, IGrantUrlTesterService grantUrlTester)
+    public WebhooksController(WebhooksContext dbContext, IIdentityService identityService, IGrantUrlTesterService grantUrlTester, IEventBus eventBus)
     {
         _dbContext = dbContext;
         _identityService = identityService;
         _grantUrlTester = grantUrlTester;
+        _eventBus = eventBus;
     }
 
     [Authorize]
@@ -93,6 +95,106 @@ public class WebhooksController : ControllerBase
         }
 
         return NotFound($"Subscriptions {id} not found");
+    }
+
+    [HttpGet]
+    [Route("ordering")]
+    [ProducesResponseType((int)HttpStatusCode.OK)]
+    public async Task<IActionResult> sendOrderingMessage()
+    {
+        // sends random message to Ordering service
+        var randomWebhookOrderingEvent = new RandomWebhookOrderingEvent("Hello Ordering from Webhook", createListOfRandomNumbers(), createListOfRandomStrings());
+
+        _eventBus.Publish(randomWebhookOrderingEvent);
+
+        return Ok();
+    }
+    
+    [HttpGet]
+    [Route("payment")]
+    [ProducesResponseType((int)HttpStatusCode.OK)]
+    public async Task<IActionResult> sendPaymentMessage()
+    {
+        // sends random message to Payment service
+        var randomWebhookPaymentEvent = new RandomWebhookPaymentEvent("Hello Payment from Webhook", createListOfRandomNumbers(), createListOfRandomStrings());
+
+        _eventBus.Publish(randomWebhookPaymentEvent);
+
+        return Ok();
+    }
+
+    [HttpGet]
+    [Route("catalog")]
+    [ProducesResponseType((int)HttpStatusCode.OK)]
+    public async Task<IActionResult> sendCatalogMessage()
+    {
+        // sends random message to Catalog service
+        var randomWebhookCatalogEvent = new RandomWebhookCatalogEvent("Hello Catalog from Webhook", createListOfRandomNumbers(), createListOfRandomStrings());
+
+        _eventBus.Publish(randomWebhookCatalogEvent);
+        
+        return Ok();
+    }
+
+    [HttpGet]
+    [Route("signal")]
+    [ProducesResponseType((int)HttpStatusCode.OK)]
+    public async Task<IActionResult> sendSignalMessage()
+    {
+        // sends random message to Webhook service
+        var randomWebhookSignalEvent = new RandomWebhookSignalEvent("Hello Signal from Webhook", createListOfRandomNumbers(), createListOfRandomStrings());
+
+        _eventBus.Publish(randomWebhookSignalEvent);
+
+        return Ok();
+    }
+
+    [HttpGet]
+    [Route("background")]
+    [ProducesResponseType((int)HttpStatusCode.OK)]
+    public async Task<IActionResult> sendBackgroundMessage()
+    {
+        // sends random message to Webhook service
+        var randomWebhookBackgroundEvent = new RandomWebhookBackgroundEvent("Hello Background from Webhook", createListOfRandomNumbers(), createListOfRandomStrings());
+
+        _eventBus.Publish(randomWebhookBackgroundEvent);
+
+        return Ok();
+    }
+
+    private List<int> createListOfRandomNumbers() 
+    {
+        Random rand = new Random();
+        List<int> listOfRandomNumbers = new List<int>();
+
+        // minimum size of 10 entries, maximum size of 20 entries
+        int sizeOfList = rand.Next(20, 30+1);
+
+        for (int i = 0; i < sizeOfList; i++)
+        {
+            listOfRandomNumbers.Add(rand.Next());
+        }
+
+        return listOfRandomNumbers;
+    }
+
+    private List<String> createListOfRandomStrings() 
+    {
+        Random rand = new Random();
+        List<String> listOfRandomStrings = new List<String>();
+
+        // minimum size of 10 entries, maximum size of 20 entries
+        int sizeOfList = rand.Next(10, 20+1);
+
+        const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+        for (int i = 0; i < sizeOfList; i++)
+        {
+            // creates a random String with a maximum size of 30
+            listOfRandomStrings.Add(new string(Enumerable.Repeat(chars, 20).Select(s => s[rand.Next(s.Length)]).ToArray()));
+        }
+
+        return listOfRandomStrings;
     }
 
 }
