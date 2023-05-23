@@ -42,7 +42,7 @@ public class Startup
 
         if (!string.IsNullOrEmpty(pathBase))
         {
-            loggerFactory.CreateLogger("init").LogDebug("Using PATH BASE '{PathBase}'", pathBase);
+            //loggerFactory.CreateLogger("init").LogDebug("Using PATH BASE '{PathBase}'", pathBase);
             app.UsePathBase(pathBase);
         }
 
