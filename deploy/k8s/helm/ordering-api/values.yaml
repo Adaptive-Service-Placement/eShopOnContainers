@@ -13,10 +13,8 @@ service:
   grpcPort: 81
 
 ingress:
-  enabled: false
+  enabled: true
   annotations: {}
-  hosts:
-    - chart-example.local
   tls: []
 
 resources: {}

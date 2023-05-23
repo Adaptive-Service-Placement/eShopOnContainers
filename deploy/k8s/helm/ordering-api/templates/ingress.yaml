@@ -1,0 +1,31 @@
+{{- if .Values.ingress.enabled -}}
+{{- $ingressPath := include "pathBase" . -}}
+{{- $serviceName := $.Values.app.svc.ordering -}}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ template "ordering-api.fullname" . }}
+  labels:
+    app: {{ template "ordering-api.name" . }}
+    chart: {{ template "ordering-api.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+{{- with .Values.ingress.annotations }}
+  annotations:
+{{ toYaml . | indent 4 }}
+{{- end }}
+spec:
+  rules:
+    {{- range .Values.ingress.hosts }}
+    - host: {{ . }}
+      http:
+        paths:
+          - path: {{ $ingressPath }}
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ $serviceName }}
+                port:
+                  number: 80
+  {{- end }}
+{{- end }}
