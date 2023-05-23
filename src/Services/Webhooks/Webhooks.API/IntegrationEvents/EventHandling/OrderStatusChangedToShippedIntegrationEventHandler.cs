@@ -4,7 +4,7 @@ public class OrderStatusChangedToShippedIntegrationEventHandler : IIntegrationEv
 {
     private readonly IWebhooksRetriever _retriever;
     private readonly IWebhooksSender _sender;
-    private readonly ILogger _logger;
+    private readonly ILogger<OrderStatusChangedToShippedIntegrationEventHandler> _logger;
     public OrderStatusChangedToShippedIntegrationEventHandler(IWebhooksRetriever retriever, IWebhooksSender sender, ILogger<OrderStatusChangedToShippedIntegrationEventHandler> logger)
     {
         _retriever = retriever;

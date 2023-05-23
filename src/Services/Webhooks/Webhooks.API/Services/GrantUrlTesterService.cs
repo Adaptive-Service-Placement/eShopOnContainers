@@ -3,7 +3,7 @@
 class GrantUrlTesterService : IGrantUrlTesterService
 {
     private readonly IHttpClientFactory _clientFactory;
-    private readonly ILogger _logger;
+    private readonly ILogger<IGrantUrlTesterService> _logger;
     public GrantUrlTesterService(IHttpClientFactory factory, ILogger<IGrantUrlTesterService> logger)
     {
         _clientFactory = factory;
