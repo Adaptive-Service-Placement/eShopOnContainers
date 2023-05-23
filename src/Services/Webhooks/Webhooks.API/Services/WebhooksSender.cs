@@ -3,7 +3,7 @@
 public class WebhooksSender : IWebhooksSender
 {
     private readonly IHttpClientFactory _httpClientFactory;
-    private readonly ILogger _logger;
+    private readonly ILogger<WebhooksSender> _logger;
     public WebhooksSender(IHttpClientFactory httpClientFactory, ILogger<WebhooksSender> logger)
     {
         _httpClientFactory = httpClientFactory;
