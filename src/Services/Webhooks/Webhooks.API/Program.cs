@@ -44,7 +44,7 @@ IConfiguration GetConfiguration()
             config["Vault:TenantId"],
             config["Vault:ClientId"],
             config["Vault:ClientSecret"]);
-        builder.AddAzureKeyVault(new Uri($"https://{config["Vault:Name"]}.vault.azure.net/"), credential);
+        //builder.AddAzureKeyVault(new Uri($"https://{config["Vault:Name"]}.vault.azure.net/"), credential);
     }
 
     return builder.Build();

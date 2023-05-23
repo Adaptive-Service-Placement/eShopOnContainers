@@ -1,5 +1,7 @@
 ﻿global using Autofac.Extensions.DependencyInjection;
 global using Autofac;
+global using Azure.Core;
+global using Azure.Identity;
 global using Devspaces.Support;
 global using HealthChecks.UI.Client;
 global using Microsoft.AspNetCore.Authentication.JwtBearer;
