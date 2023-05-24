@@ -33,8 +33,8 @@ public class RandomCatalogPaymentEventHandler : IIntegrationEventHandler<RandomC
 
         using (LogContext.PushProperty("Latency", $"{@event.Id}-{Program.AppName}"))
         {
-            var latency = DateTime.Now - @event.CreationDate;
-            _logger.LogInformation("{latency}", latency);
+            TimeSpan latency = DateTime.Now - @event.CreationDate;
+            _logger.LogInformation("{latency}", (int)latency.TotalMilliseconds);
         }
     }
 }
