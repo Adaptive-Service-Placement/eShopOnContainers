@@ -10,10 +10,13 @@ public record RandomCatalogPaymentEvent : IntegrationEvent
 
     public List<String> ListOfRandomStrings {get; private init;}
 
+    public DateTime timeOfPublishment {get; private init;}
+
     public RandomCatalogPaymentEvent(String eventId, List<int> listOfRandomNumbers, List<String> listOfRandomStrings) 
     {
         EventId = eventId;
         ListOfRandomNumbers = listOfRandomNumbers;
         ListOfRandomStrings = listOfRandomStrings;
+        timeOfPublishment = DateTime.Now;
     }
 }
