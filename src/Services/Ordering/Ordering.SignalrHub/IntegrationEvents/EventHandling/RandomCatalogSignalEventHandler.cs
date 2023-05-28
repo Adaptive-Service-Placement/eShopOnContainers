@@ -30,5 +30,11 @@ public class RandomCatalogSignalEventHandler : IIntegrationEventHandler<RandomCa
            }
 
         }
+
+        using (LogContext.PushProperty("Latency", $"{@event.Id}-{Program.AppName}"))
+        {
+            TimeSpan latency = DateTime.Now - @event.CreationDate;
+            _logger.LogInformation("{latency}", (int)latency.TotalMilliseconds);
+        }
     }
 }
