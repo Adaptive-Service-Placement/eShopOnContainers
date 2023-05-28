@@ -4,6 +4,8 @@ namespace Ordering.BackgroundTasks.EventHandling
     using Microsoft.eShopOnContainers.BuildingBlocks.EventBusRabbitMQ;
     using Microsoft.Extensions.Logging;
     using Ordering.BackgroundTasks.Events;
+    using Serilog.Context;
+    using System;
     using System.Threading.Tasks;
 
     public class RandomWebhookBackgroundEventHandler : IIntegrationEventHandler<RandomWebhookBackgroundEvent> 
@@ -30,6 +32,12 @@ namespace Ordering.BackgroundTasks.EventHandling
             foreach (var randomNumber in @event.ListOfRandomNumbers)
             {
                 _logger.LogInformation("----- Random Number: {number} -----", randomNumber);
+            }
+
+            using (LogContext.PushProperty("Latency", $"{@event.Id}-{Program.AppName}"))
+            {
+                TimeSpan latency = DateTime.Now - @event.CreationDate;
+                _logger.LogInformation("{latency}", (int)latency.TotalMilliseconds);
             }
         }
 
