@@ -42,6 +42,8 @@ inf:
     useAzure: false         # true if use Azure Service Bus. False if RabbitMQ
     user: ""
     password: ""
+  migration:
+    interval: ""
   appinsights:
       key: ""               # App insights to use
   k8s:                      # inf.k8s defines Kubernetes cluster global config

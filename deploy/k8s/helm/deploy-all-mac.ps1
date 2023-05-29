@@ -18,7 +18,8 @@ Param(
     [parameter(Mandatory=$false)][string]$chartsToDeploy="*",
     [parameter(Mandatory=$false)][string]$ingressMeshAnnotationsFile="ingress_values_linkerd.yaml",
     [parameter(Mandatory=$false)][string]$eventbusUser="",
-    [parameter(Mandatory=$false)][string]$eventbusPassword=""
+    [parameter(Mandatory=$false)][string]$eventbusPassword="",
+    [parameter(Mandatory=$false)][string]$migrationInterval="60"
     )
 
 function Install-Chart  {
@@ -122,8 +123,9 @@ if (-not [string]::IsNullOrEmpty($registry)) {
 Write-Host "Begin eShopOnContainers installation using Helm" -ForegroundColor Green
 
 $infras = ("sql-data", "nosql-data", "mysql", "keystore-data", "basket-data")
-$charts = ("eshop-common", "basket-api","catalog-api", "identity-api", "mobileshoppingagg","ordering-api","ordering-backgroundtasks","ordering-signalrhub", "payment-api", "monitoring-service", "mapping-service", "migration-service", "webmvc", "webshoppingagg", "webspa", "webstatus", "webhooks-api", "webhooks-web")
+$charts = ("eshop-common", "basket-api","catalog-api", "identity-api", "mobileshoppingagg","ordering-api","ordering-backgroundtasks","ordering-signalrhub", "payment-api", "webmvc", "webshoppingagg", "webspa", "webstatus", "webhooks-api", "webhooks-web")
 $gateways = ("apigwms", "apigwws")
+$framework = ("monitoring-service", "mapping-service", "migration-service")
 
 if ($deployInfrastructure) {
     foreach ($infra in $infras) {
@@ -139,7 +141,7 @@ if ($deployCharts) {
     foreach ($chart in $charts) {
         if ($chartsToDeploy -eq "*" -or $chartsToDeploy.Contains($chart)) {
             Write-Host "Installing: $chart" -ForegroundColor Green
-            Install-Chart $chart "--values app.yaml --values inf.yaml --values $ingressValuesFile --values $ingressMeshAnnotationsFile --set app.name=$appName --set inf.k8s.dns=$dns --set ingress.hosts=``{$dns``} --set image.tag=$imageTag --set image.pullPolicy=$imagePullPolicy --set inf.tls.enabled=$sslEnabled --set inf.mesh.enabled=$useMesh --set inf.k8s.local=$useLocalk8s --set inf.eventbus.user=$eventbusUser --set inf.eventbus.password=$eventbusPassword" $useCustomRegistry --set controller.publishService.enabled=true
+            Install-Chart $chart "--values app.yaml --values inf.yaml --values $ingressValuesFile --values $ingressMeshAnnotationsFile --set app.name=$appName --set inf.k8s.dns=$dns --set ingress.hosts=``{$dns``} --set image.tag=$imageTag --set image.pullPolicy=$imagePullPolicy --set inf.tls.enabled=$sslEnabled --set inf.mesh.enabled=$useMesh --set inf.k8s.local=$useLocalk8s --set inf.eventbus.user=$eventbusUser --set inf.eventbus.password=$eventbusPassword --set inf.migration.interval=$migrationInterval" $useCustomRegistry --set controller.publishService.enabled=true
         }
     }
 
@@ -150,6 +152,13 @@ if ($deployCharts) {
             
         }
     }
+
+    foreach ($service in $framework) {
+            if ($chartsToDeploy -eq "*" -or $chartsToDeploy.Contains($service)) {
+                Write-Host "Installing: $service" -ForegroundColor Green
+                Install-Chart $service "--values app.yaml --values inf.yaml --values $ingressValuesFile --values $ingressMeshAnnotationsFile --set app.name=$appName --set inf.k8s.dns=$dns --set ingress.hosts=``{$dns``} --set image.tag=$imageTag --set image.pullPolicy=$imagePullPolicy --set inf.tls.enabled=$sslEnabled --set inf.mesh.enabled=$useMesh --set inf.k8s.local=$useLocalk8s --set inf.eventbus.user=$eventbusUser --set inf.eventbus.password=$eventbusPassword --set inf.migration.interval=$migrationInterval" $useCustomRegistry --set controller.publishService.enabled=true
+            }
+        }
 }
 else {
     Write-Host "eShopOnContainers non-infrastructure charts aren't installed (-deployCharts is false)" -ForegroundColor Yellow
