@@ -2,8 +2,6 @@ apiVersion: rabbitmq.com/v1beta1
 kind: RabbitmqCluster
 metadata:
   name: rabbitmq
-  labels:
-    app: rabbit
 spec:
   replicas: 3
   resources:
@@ -18,8 +16,8 @@ spec:
       requiredDuringSchedulingIgnoredDuringExecution:
         - labelSelector:
             matchExpressions:
-              - key: "app"
+              - key: app.kubernetes.io/name
                 operator: In
                 values:
-                  - rabbit
+                - rabbitmq
           topologyKey: "kubernetes.io/hostname"
