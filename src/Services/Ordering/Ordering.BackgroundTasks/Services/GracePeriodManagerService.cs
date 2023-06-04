@@ -27,29 +27,29 @@ namespace Ordering.BackgroundTasks.Services
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            /*_logger.LogDebug("GracePeriodManagerService is starting.");
+            //_logger.LogDebug("GracePeriodManagerService is starting.");
 
-            stoppingToken.Register(() => _logger.LogDebug("#1 GracePeriodManagerService background task is stopping."));
+            //stoppingToken.Register(() => _logger.LogDebug("#1 GracePeriodManagerService background task is stopping."));
 
             while (!stoppingToken.IsCancellationRequested)
             {
-                _logger.LogDebug("GracePeriodManagerService background task is doing background work.");
+                //_logger.LogDebug("GracePeriodManagerService background task is doing background work.");
 
                 CheckConfirmedGracePeriodOrders();
                 try {
                     await Task.Delay(_settings.CheckUpdateTime, stoppingToken);
                 }
                 catch (TaskCanceledException exception) {
-                    _logger.LogCritical(exception, "TaskCanceledException Error", exception.Message);
+                    //_logger.LogCritical(exception, "TaskCanceledException Error", exception.Message);
                 }
             }
 
-            _logger.LogDebug("GracePeriodManagerService background task is stopping.");*/
+            //_logger.LogDebug("GracePeriodManagerService background task is stopping.");
         }
 
         private void CheckConfirmedGracePeriodOrders()
         {
-            _logger.LogDebug("Checking confirmed grace period orders");
+            //_logger.LogDebug("Checking confirmed grace period orders");
 
             var orderIds = GetConfirmedGracePeriodOrders();
 
