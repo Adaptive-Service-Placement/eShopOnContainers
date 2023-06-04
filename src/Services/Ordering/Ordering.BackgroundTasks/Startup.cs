@@ -14,6 +14,7 @@
     using Microsoft.eShopOnContainers.BuildingBlocks.EventBusRabbitMQ;
     using Autofac;
     using Microsoft.eShopOnContainers.BuildingBlocks.EventBus;
+    using RabbitMQ.Client;
 
     public class Startup
     {
@@ -30,6 +31,36 @@
                 .Configure<BackgroundTaskSettings>(this.Configuration)
                 .AddOptions()
                 .AddHostedService<GracePeriodManagerService>();
+
+            services.AddSingleton<IRabbitMQPersistentConnection>(sp =>
+            {
+                var logger = sp.GetRequiredService<ILogger<DefaultRabbitMQPersistentConnection>>();
+
+
+                var factory = new ConnectionFactory()
+                {
+                    HostName = Configuration["EventBusConnection"],
+                    DispatchConsumersAsync = true
+                };
+
+                if (!string.IsNullOrEmpty(Configuration["EventBusUserName"]))
+                {
+                    factory.UserName = Configuration["EventBusUserName"];
+                }
+
+                if (!string.IsNullOrEmpty(Configuration["EventBusPassword"]))
+                {
+                    factory.Password = Configuration["EventBusPassword"];
+                }
+
+                var retryCount = 5;
+                if (!string.IsNullOrEmpty(Configuration["EventBusRetryCount"]))
+                {
+                    retryCount = int.Parse(Configuration["EventBusRetryCount"]);
+                }
+
+                return new DefaultRabbitMQPersistentConnection(factory, logger, retryCount);
+            });
 
             RegisterEventBus(services);
         }
