@@ -25,8 +25,8 @@ public class Startup
             .AddHealthChecks(Configuration)
             .AddCustomDbContext(Configuration)
             .AddCustomSwagger(Configuration)
-            .AddCustomAuthentication(Configuration)
-            .AddCustomAuthorization(Configuration)
+            //.AddCustomAuthentication(Configuration)
+            //.AddCustomAuthorization(Configuration)
             .AddCustomIntegrations(Configuration)
             .AddCustomConfiguration(Configuration)
             .AddEventBus(Configuration);
@@ -58,13 +58,13 @@ public class Startup
             .UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint($"{ (!string.IsNullOrEmpty(pathBase) ? pathBase : string.Empty) }/swagger/v1/swagger.json", "Ordering.API V1");
-                c.OAuthClientId("orderingswaggerui");
-                c.OAuthAppName("Ordering Swagger UI");
+                //c.OAuthClientId("orderingswaggerui");
+                //c.OAuthAppName("Ordering Swagger UI");
             });
 
         app.UseRouting();
         app.UseCors("CorsPolicy");
-        ConfigureAuth(app);
+        //ConfigureAuth(app);
 
         app.UseEndpoints(endpoints =>
         {
@@ -227,7 +227,7 @@ static class CustomExtensionsMethods
                 Version = "v1",
                 Description = "The Ordering Service HTTP API"
             });
-            options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+            /*options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
             {
                 Type = SecuritySchemeType.OAuth2,
                 Flows = new OpenApiOAuthFlows()
@@ -244,7 +244,7 @@ static class CustomExtensionsMethods
                 }
             });
 
-            options.OperationFilter<AuthorizeCheckOperationFilter>();
+            options.OperationFilter<AuthorizeCheckOperationFilter>();*/
         });
 
         return services;
