@@ -32,6 +32,15 @@
 
         public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
         {
+
+            var pathBase = Configuration["PATH_BASE"];
+
+            if (!string.IsNullOrEmpty(pathBase))
+            {
+                loggerFactory.CreateLogger<Startup>().LogDebug("Using PATH BASE '{pathBase}'", pathBase);
+                app.UsePathBase(pathBase);
+            }
+
             app.UseRouting();
             app.UseEndpoints(endpoints =>
             {
