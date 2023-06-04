@@ -23,13 +23,14 @@ public class Startup
             .AddDevspaces()
             .AddHttpClientServices(Configuration)
             .AddIntegrationServices(Configuration)
-            .AddEventBus(Configuration)
             .AddCustomAuthentication(Configuration)
             .AddSingleton<IHttpContextAccessor, HttpContextAccessor>()
             .AddTransient<IIdentityService, IdentityService>()
             .AddTransient<IGrantUrlTesterService, GrantUrlTesterService>()
             .AddTransient<IWebhooksRetriever, WebhooksRetriever>()
             .AddTransient<IWebhooksSender, WebhooksSender>();
+
+        RegisterEventBus(services);
 
         var container = new ContainerBuilder();
         container.Populate(services);
@@ -93,6 +94,45 @@ public class Startup
         eventBus.Subscribe<RandomCatalogWebhookEvent, RandomCatalogWebhookEventHandler>();
         eventBus.Subscribe<RandomOrderingWebhookEvent, RandomOrderingWebhookEventHandler>();
         eventBus.Subscribe<RandomSignalWebhookEvent, RandomSignalWebhookEventHandler>();
+    }
+
+    private void RegisterEventBus(IServiceCollection services)
+    {
+        if (Configuration.GetValue<bool>("AzureServiceBusEnabled"))
+        {
+            services.AddSingleton<IEventBus, EventBusServiceBus>(sp =>
+            {
+                var serviceBusPersisterConnection = sp.GetRequiredService<IServiceBusPersisterConnection>();
+                var iLifetimeScope = sp.GetRequiredService<ILifetimeScope>();
+                var logger = sp.GetRequiredService<ILogger<EventBusServiceBus>>();
+                var eventBusSubcriptionsManager = sp.GetRequiredService<IEventBusSubscriptionsManager>();
+                string subscriptionName = Configuration["SubscriptionClientName"];
+
+                return new EventBusServiceBus(serviceBusPersisterConnection, logger,
+                    eventBusSubcriptionsManager, iLifetimeScope, subscriptionName);
+            });
+        }
+        else
+        {
+            services.AddSingleton<IEventBus, EventBusRabbitMQ>(sp =>
+            {
+                var subscriptionClientName = Configuration["SubscriptionClientName"];
+                var rabbitMQPersistentConnection = sp.GetRequiredService<IRabbitMQPersistentConnection>();
+                var iLifetimeScope = sp.GetRequiredService<ILifetimeScope>();
+                var logger = sp.GetRequiredService<ILogger<EventBusRabbitMQ>>();
+                var eventBusSubcriptionsManager = sp.GetRequiredService<IEventBusSubscriptionsManager>();
+
+                var retryCount = 5;
+                if (!string.IsNullOrEmpty(Configuration["EventBusRetryCount"]))
+                {
+                    retryCount = int.Parse(Configuration["EventBusRetryCount"]);
+                }
+
+                return new EventBusRabbitMQ(rabbitMQPersistentConnection, logger, iLifetimeScope, eventBusSubcriptionsManager, subscriptionClientName, retryCount);
+            });
+        }
+
+        services.AddSingleton<IEventBusSubscriptionsManager, InMemoryEventBusSubscriptionsManager>();
     }
 }
 
