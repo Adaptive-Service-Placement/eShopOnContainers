@@ -8,11 +8,17 @@ public class CatalogController : ControllerBase
     private readonly CatalogSettings _settings;
     private readonly ICatalogIntegrationEventService _catalogIntegrationEventService;
 
-    public CatalogController(CatalogContext context, IOptionsSnapshot<CatalogSettings> settings, ICatalogIntegrationEventService catalogIntegrationEventService)
+    private readonly IEventBus _eventBus;
+
+    public CatalogController(CatalogContext context, 
+                             IOptionsSnapshot<CatalogSettings> settings, 
+                             ICatalogIntegrationEventService catalogIntegrationEventService, 
+                             IEventBus eventBus)
     {
         _catalogContext = context ?? throw new ArgumentNullException(nameof(context));
         _catalogIntegrationEventService = catalogIntegrationEventService ?? throw new ArgumentNullException(nameof(catalogIntegrationEventService));
         _settings = settings.Value;
+        _eventBus = eventBus;
 
         context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
     }
@@ -323,8 +329,7 @@ public class CatalogController : ControllerBase
         // sends random message to Ordering service
         var randomCatalogOrderingEvent = new RandomCatalogOrderingEvent("Hello Ordering from Catalog", createListOfRandomNumbers(), createListOfRandomStrings());
         
-        await _catalogIntegrationEventService.SaveEventAndCatalogContextChangesAsync(randomCatalogOrderingEvent);
-        await _catalogIntegrationEventService.PublishThroughEventBusAsync(randomCatalogOrderingEvent);
+        _eventBus.Publish(randomCatalogOrderingEvent);
 
         return Ok();
     }
@@ -337,8 +342,7 @@ public class CatalogController : ControllerBase
         // sends random message to Payment service
         var randomCatalogPaymentEvent = new RandomCatalogPaymentEvent("Hello Payment from Catalog", createListOfRandomNumbers(), createListOfRandomStrings());
         
-        await _catalogIntegrationEventService.SaveEventAndCatalogContextChangesAsync(randomCatalogPaymentEvent);
-        await _catalogIntegrationEventService.PublishThroughEventBusAsync(randomCatalogPaymentEvent);
+        _eventBus.Publish(randomCatalogPaymentEvent);
 
         return Ok();
     }
@@ -351,8 +355,7 @@ public class CatalogController : ControllerBase
         // sends random message to Webhook service
         var randomCatalogWebhookEvent = new RandomCatalogWebhookEvent("Hello Webhook from Catalog", createListOfRandomNumbers(), createListOfRandomStrings());
         
-        await _catalogIntegrationEventService.SaveEventAndCatalogContextChangesAsync(randomCatalogWebhookEvent);
-        await _catalogIntegrationEventService.PublishThroughEventBusAsync(randomCatalogWebhookEvent);
+        _eventBus.Publish(randomCatalogWebhookEvent);
 
         return Ok();
     }
@@ -365,8 +368,7 @@ public class CatalogController : ControllerBase
         // sends random message to Webhook service
         var randomCatalogSignalEvent = new RandomCatalogSignalEvent("Hello Signal from Catalog", createListOfRandomNumbers(), createListOfRandomStrings());
         
-        await _catalogIntegrationEventService.SaveEventAndCatalogContextChangesAsync(randomCatalogSignalEvent);
-        await _catalogIntegrationEventService.PublishThroughEventBusAsync(randomCatalogSignalEvent);
+        _eventBus.Publish(randomCatalogSignalEvent);
 
         return Ok();
     }
@@ -379,8 +381,7 @@ public class CatalogController : ControllerBase
         // sends random message to Webhook service
         var randomCatalogBackgroundEvent = new RandomCatalogBackgroundEvent("Hello Background from Catalog", createListOfRandomNumbers(), createListOfRandomStrings());
         
-        await _catalogIntegrationEventService.SaveEventAndCatalogContextChangesAsync(randomCatalogBackgroundEvent);
-        await _catalogIntegrationEventService.PublishThroughEventBusAsync(randomCatalogBackgroundEvent);
+        _eventBus.Publish(randomCatalogBackgroundEvent);
 
         return Ok();
     }
