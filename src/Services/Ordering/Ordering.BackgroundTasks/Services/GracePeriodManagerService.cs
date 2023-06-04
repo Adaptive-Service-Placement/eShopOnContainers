@@ -27,7 +27,7 @@ namespace Ordering.BackgroundTasks.Services
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            _logger.LogDebug("GracePeriodManagerService is starting.");
+            /*_logger.LogDebug("GracePeriodManagerService is starting.");
 
             stoppingToken.Register(() => _logger.LogDebug("#1 GracePeriodManagerService background task is stopping."));
 
@@ -44,7 +44,7 @@ namespace Ordering.BackgroundTasks.Services
                 }
             }
 
-            _logger.LogDebug("GracePeriodManagerService background task is stopping.");
+            _logger.LogDebug("GracePeriodManagerService background task is stopping.");*/
         }
 
         private void CheckConfirmedGracePeriodOrders()

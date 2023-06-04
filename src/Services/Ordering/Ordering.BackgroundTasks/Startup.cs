@@ -10,6 +10,10 @@
     using Ordering.BackgroundTasks.Services;
     using Ordering.BackgroundTasks.Events;
     using Ordering.BackgroundTasks.EventHandling;
+    using Microsoft.eShopOnContainers.BuildingBlocks.EventBus.Abstractions;
+    using Microsoft.eShopOnContainers.BuildingBlocks.EventBusRabbitMQ;
+    using Autofac;
+    using Microsoft.eShopOnContainers.BuildingBlocks.EventBus;
 
     public class Startup
     {
@@ -25,8 +29,9 @@
             services.AddCustomHealthCheck(this.Configuration)
                 .Configure<BackgroundTaskSettings>(this.Configuration)
                 .AddOptions()
-                .AddHostedService<GracePeriodManagerService>()
-                .AddEventBus(this.Configuration);
+                .AddHostedService<GracePeriodManagerService>();
+
+            RegisterEventBus(services);
         }
 
 
@@ -66,5 +71,27 @@
             eventBus.Subscribe<RandomOrderingBackgroundEvent, RandomOrderingBackgroundEventHandler>();
             eventBus.Subscribe<RandomWebhookBackgroundEvent, RandomWebhookBackgroundEventHandler>();
         }
+
+        private void RegisterEventBus(IServiceCollection services)
+    {
+        services.AddSingleton<IEventBus, EventBusRabbitMQ>(sp =>
+            {
+                var subscriptionClientName = Configuration["SubscriptionClientName"];
+                var rabbitMQPersistentConnection = sp.GetRequiredService<IRabbitMQPersistentConnection>();
+                var iLifetimeScope = sp.GetRequiredService<ILifetimeScope>();
+                var logger = sp.GetRequiredService<ILogger<EventBusRabbitMQ>>();
+                var eventBusSubcriptionsManager = sp.GetRequiredService<IEventBusSubscriptionsManager>();
+
+                var retryCount = 5;
+                if (!string.IsNullOrEmpty(Configuration["EventBusRetryCount"]))
+                {
+                    retryCount = int.Parse(Configuration["EventBusRetryCount"]);
+                }
+
+                return new EventBusRabbitMQ(rabbitMQPersistentConnection, logger, iLifetimeScope, eventBusSubcriptionsManager, subscriptionClientName, retryCount);
+            });
+
+        services.AddSingleton<IEventBusSubscriptionsManager, InMemoryEventBusSubscriptionsManager>();
+    }
     }
 }
